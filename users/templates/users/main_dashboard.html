@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Iqraa Hospital - Ticketing System</title>
+  <link rel="stylesheet" href="{% static 'users/css/dashboard.css' %}">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <h1 style="font-size: 1.875rem; font-weight: bold;">Iqraa Hospital</h1>
+      <nav>
+        <a href="#">Home</a>
+        <a href="#">Create Ticket</a>
+        <a href="#">Track Ticket</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero container">
+    <div>
+      <h2>IQRAA ByteWorks</h2>
+      <p>Empowering Iqraa Hospital through technology – Iqraa ByteWorks develops the digital solutions that make healthcare smarter and faster.</p>
+
+      <div class="dropdown">
+        <button class="dropdown-btn" id="dropdownButton">Choose Your Department</button>
+        <div class="dropdown-menu" id="dropdownMenu">
+
+          <div class="hidden md:flex flex-col space-y-2 mt-4">
+            <a href="{% url 'login' %}?department=IT" class="text-blue-600 hover:text-blue-800 hover:underline">IT Department</a>
+            <a href="{% url 'login' %}?department=Nursing" class="text-blue-600 hover:text-blue-800 hover:underline">Nursing Department</a>
+            <a href="{% url 'login' %}?department=HR" class="text-blue-600 hover:text-blue-800 hover:underline">Human Resource Department</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div>
+      <img src="{% static 'users/images/dashborad_1.jpeg' %}" alt="Iqraa Hospital" class="hero-img" />
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-it-works">
+    <h3 style="font-size: 2rem; font-weight: bold; margin-bottom: 48px;">How It Works</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h4>Step 1: Choose Your Outlet</h4>
+        <p>Select the relevant outlet, branch, or department you're associated with.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <h4>Step 2: Login or Register</h4>
+        <p>Log in using your existing credentials or register as a new user.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h4>Step 3: Access & Fill Forms</h4>
+        <p>View your forms, fill them out, and submit for processing.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Iqraa Hospital. All rights reserved.
+  </footer>
+
+  <script>
+    const btn = document.getElementById('dropdownButton');
+    const menu = document.getElementById('dropdownMenu');
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+    });
+
+    window.addEventListener('click', () => {
+      menu.style.display = 'none';
+    });
+  </script>
+
+</body>
+</html>

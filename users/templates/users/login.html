@@ -1,0 +1,169 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Iqraa Hospital | Secure Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --text-primary: #1e293b;
+      --text-secondary: #64748b;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+    }
+    .auth-container {
+      max-width: 1200px;
+    }
+    .auth-card {
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.03),
+        0 1px 2px -1px rgba(0, 0, 0, 0.02);
+      border-radius: 12px;
+    }
+    .input-field {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .input-field:focus {
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      border-color: var(--primary);
+    }
+    .btn-primary {
+      transition: all 0.15s ease;
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+    }
+    .errorlist {
+      color: #dc2626;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+  </style>
+</head>
+<body class="antialiased text-gray-800">
+  <main class="min-h-screen flex items-center justify-center p-4">
+    <div class="auth-container grid md:grid-cols-2 gap-12 items-center">
+      <!-- Brand Section -->
+      <section class="hidden md:block">
+        <div class="max-w-md mx-auto space-y-8">
+          <div class="flex items-center space-x-3">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-10 w-10 text-blue-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+              />
+            </svg>
+            <span class="text-2xl font-bold text-gray-900">Iqraa Hospital</span>
+          </div>
+          <div class="pt-4">
+            <img
+              src="{% static 'users/images/login_image.jpeg' %}"
+              alt="Hospital illustration"
+              class="rounded-xl w-full max-w-md"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- Auth Section -->
+      <section>
+        <div class="auth-card bg-white p-8 md:p-10 w-full max-w-md mx-auto">
+          <header class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">
+              Welcome back
+            </h2>
+            <p class="text-gray-500">Sign in with your Iqraa ID</p>
+          </header>
+
+          <form method="post" class="space-y-6">
+            {% csrf_token %}
+            
+            {% if form.non_field_errors %}
+              <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg">
+                {{ form.non_field_errors }}
+              </div>
+            {% endif %}
+
+            <div class="space-y-1.5">
+              <label for="{{ form.username.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                Iqraa ID
+              </label>
+              <input
+                type="number"
+                id="{{ form.username.id_for_label }}"
+                name="{{ form.username.html_name }}"
+                value="{{ form.username.value|default_if_none:'' }}"
+                placeholder="100000"
+                required
+                class="w-full px-4 py-3 border border-gray-200 rounded-lg input-field focus:outline-none {% if form.username.errors %}border-red-500{% endif %}"
+              />
+              {% if form.username.errors %}
+                <div class="errorlist">
+                  {{ form.username.errors }}
+                </div>
+              {% endif %}
+            </div>
+
+            <div class="space-y-1.5">
+              <div class="flex justify-between items-center">
+                <label for="{{ form.password.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                  Password
+                </label>
+                <a href="#" class="text-sm text-blue-600 hover:text-blue-500">
+                  Forgot password?
+                </a>
+              </div>
+              <input
+                type="password"
+                id="{{ form.password.id_for_label }}"
+                name="{{ form.password.html_name }}"
+                placeholder="••••••••"
+                required
+                class="w-full px-4 py-3 border border-gray-200 rounded-lg input-field focus:outline-none {% if form.password.errors %}border-red-500{% endif %}"
+              />
+              {% if form.password.errors %}
+                <div class="errorlist">
+                  {{ form.password.errors }}
+                </div>
+              {% endif %}
+            </div>
+
+            <button
+              type="submit"
+              class="w-full py-3 bg-blue-600 text-white rounded-lg font-medium btn-primary hover:bg-blue-700"
+            >
+              Sign in
+            </button>
+          </form>
+
+          <footer class="mt-8 pt-6 border-t border-gray-100 text-center">
+            <p class="text-sm text-gray-500">
+              Don't have an account? 
+              <a href="#" class="text-blue-600 hover:text-blue-500">Contact administrator</a>
+            </p>
+          </footer>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
