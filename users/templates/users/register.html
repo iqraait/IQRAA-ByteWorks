@@ -3,209 +3,135 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Iqraa Hospital | Create Account</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>Register</title>
   <style>
-    :root {
-      --primary: #2563eb;
-      --primary-hover: #1d4ed8;
-      --surface: #ffffff;
-      --border: #e2e8f0;
-      --text-primary: #1e293b;
-      --text-secondary: #64748b;
-    }
     body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f8fafc;
+      font-family: Arial, sans-serif;
+      background: #f9fafb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-    .auth-container {
-      max-width: 1200px;
+
+    .register-box {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 350px;
     }
-    .auth-card {
-      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.03), 
-                  0 1px 2px -1px rgba(0, 0, 0, 0.02);
-      border-radius: 12px;
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
     }
-    .input-field {
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    .form-group {
+      margin-bottom: 1rem;
     }
-    .input-field:focus {
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-      border-color: var(--primary);
+
+    label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: bold;
     }
-    .btn-primary {
-      transition: all 0.15s ease;
+
+    input[type="text"],
+    input[type="password"],
+    select {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
-    .btn-primary:hover {
-      transform: translateY(-1px);
+
+    button {
+      width: 100%;
+      padding: 0.6rem;
+      background: #10b981;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 1rem;
     }
-    .errorlist {
-      color: #dc2626;
-      font-size: 0.875rem;
-      margin-top: 0.25rem;
+
+    button:hover {
+      background: #059669;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9rem;
+      margin-top: 0.3rem;
+    }
+
+    .helptext {
+      font-size: 0.8rem;
+      color: #666;
+      display: block;
+      margin-top: 0.3rem;
     }
   </style>
 </head>
-<body class="antialiased text-gray-800">
+<body>
 
-  <main class="min-h-screen flex items-center justify-center p-4">
-    <div class="auth-container grid md:grid-cols-2 gap-12 items-center">
-      
-      <!-- Brand Section -->
-      <section class="hidden md:block">
-        <div class="max-w-md mx-auto space-y-8">
-          <div class="flex items-center space-x-3">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-            </svg>
-            <span class="text-2xl font-bold text-gray-900">Iqraa Hospital</span>
-          </div>
-          
-          <div class="space-y-4">
-            <h1 class="text-3xl font-bold text-gray-900 leading-tight">
-              Join our healthcare <br>support system
-            </h1>
-            <p class="text-gray-600 leading-relaxed">
-              Create your account to access patient management, appointment scheduling, and hospital services.
-            </p>
-          </div>
-          
-          <div class="pt-4">
-            <img src="{% static 'users/images/login_image.jpeg' %}" alt="Hospital illustration" class="rounded-xl w-full max-w-md">
-          </div>
+  <div class="register-box">
+    <h2>Employee Registration</h2>
+
+    <form method="POST" action="{% url 'register' %}">
+      {% csrf_token %}
+
+      {% if form.non_field_errors %}
+        <div class="error">
+          {% for error in form.non_field_errors %}
+            {{ error }}
+          {% endfor %}
         </div>
-      </section>
+      {% endif %}
 
-      <!-- Auth Section -->
-      <section>
-        <div class="auth-card bg-white p-8 md:p-10 w-full max-w-md mx-auto">
-          <header class="mb-8">
-            <h2 class="text-2xl font-bold text-gray-900 mb-2">Create your account</h2>
-            <p class="text-gray-500">Get started with Iqraa Hospital</p>
-          </header>
-          
-          <form method="POST" class="space-y-6">
-            {% csrf_token %}
-            
-            {% if form.non_field_errors %}
-              <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-4">
-                {% for error in form.non_field_errors %}
-                  <p class="text-sm text-red-700">{{ error }}</p>
-                {% endfor %}
-              </div>
-            {% endif %}
-            
-            <!-- Iqraa ID Field -->
-            <div class="space-y-1.5">
-              <label for="{{ form.iqraa_id.id_for_label }}" class="block text-sm font-medium text-gray-700">Iqraa ID</label>
-              <input
-                type="number"
-                id="{{ form.iqraa_id.id_for_label }}"
-                name="{{ form.iqraa_id.html_name }}"
-                value="{{ form.iqraa_id.value|default_if_none:'' }}"
-                placeholder="100000"
-                required
-                class="w-full px-4 py-3 border border-gray-200 rounded-lg input-field focus:outline-none {% if form.iqraa_id.errors %}border-red-500{% endif %}"
-              >
-              {% if form.iqraa_id.errors %}
-                <div class="errorlist">
-                  {{ form.iqraa_id.errors }}
-                </div>
-              {% endif %}
-            </div>
-            
-            <!-- Department Field -->
-            <div class="space-y-1.5">
-              <label for="{{ form.department.id_for_label }}" class="block text-sm font-medium text-gray-700">Department</label>
-              <select
-                id="{{ form.department.id_for_label }}"
-                name="{{ form.department.html_name }}"
-                class="w-full px-4 py-3 border border-gray-200 rounded-lg input-field focus:outline-none {% if form.department.errors %}border-red-500{% endif %}"
-              >
-                {% for value, label in form.department.field.choices %}
-                  <option value="{{ value }}" {% if form.department.value == value %}selected{% endif %}>{{ label }}</option>
-                {% endfor %}
-              </select>
-              {% if form.department.errors %}
-                <div class="errorlist">
-                  {{ form.department.errors }}
-                </div>
-              {% endif %}
-            </div>
-            
-            <!-- Password Field -->
-            <div class="space-y-1.5">
-              <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-gray-700">Password</label>
-              <input
-                type="password"
-                id="{{ form.password1.id_for_label }}"
-                name="{{ form.password1.html_name }}"
-                placeholder="••••••••"
-                required
-                class="w-full px-4 py-3 border border-gray-200 rounded-lg input-field focus:outline-none {% if form.password1.errors %}border-red-500{% endif %}"
-              >
-              {% if form.password1.errors %}
-                <div class="errorlist">
-                  {{ form.password1.errors }}
-                </div>
-              {% endif %}
-              <p class="text-xs text-gray-500 mt-1">Minimum 8 characters with at least one number</p>
-            </div>
-            
-            <!-- Confirm Password Field -->
-            <div class="space-y-1.5">
-              <label for="{{ form.password2.id_for_label }}" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-              <input
-                type="password"
-                id="{{ form.password2.id_for_label }}"
-                name="{{ form.password2.html_name }}"
-                placeholder="••••••••"
-                required
-                class="w-full px-4 py-3 border border-gray-200 rounded-lg input-field focus:outline-none {% if form.password2.errors %}border-red-500{% endif %}"
-              >
-              {% if form.password2.errors %}
-                <div class="errorlist">
-                  {{ form.password2.errors }}
-                </div>
-              {% endif %}
-            </div>
-            
-            <!-- Terms Checkbox -->
-            <div class="flex items-start">
-              <div class="flex items-center h-5">
-                <input
-                  id="terms"
-                  name="terms"
-                  type="checkbox"
-                  required
-                  class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
-                >
-              </div>
-              <label for="terms" class="ml-2 text-sm text-gray-600">
-                I agree to the <a href="#" class="text-blue-600 hover:underline">Terms of Service</a> and <a href="#" class="text-blue-600 hover:underline">Privacy Policy</a>
-              </label>
-            </div>
-            
-            <button
-              type="submit"
-              class="w-full py-3 bg-blue-600 text-white rounded-lg font-medium btn-primary hover:bg-blue-700"
-            >
-              Create Account
-            </button>
-          </form>
+      <!-- Iqraa ID Field -->
+      <div class="form-group">
+        {{ form.iqraa_id.label_tag }}
+        {{ form.iqraa_id }}
+        {% if form.iqraa_id.help_text %}
+          <span class="helptext">{{ form.iqraa_id.help_text }}</span>
+        {% endif %}
+        {% for error in form.iqraa_id.errors %}
+          <div class="error">{{ error }}</div>
+        {% endfor %}
+      </div>
 
-          <footer class="mt-8 pt-6 border-t border-gray-100 text-center">
-            <p class="text-gray-500 text-sm">
-              Already have an account? 
-              <a href="{% url 'login' %}" class="text-blue-600 font-medium hover:text-blue-500">Sign in</a>
-            </p>
-          </footer>
-        </div>
-      </section>
-    </div>
-  </main>
+      <!-- Department Field -->
+      <div class="form-group">
+        {{ form.department.label_tag }}
+        {{ form.department }}
+        {% for error in form.department.errors %}
+          <div class="error">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <!-- Password Fields -->
+      <div class="form-group">
+        {{ form.password1.label_tag }}
+        {{ form.password1 }}
+        {% for error in form.password1.errors %}
+          <div class="error">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="form-group">
+        {{ form.password2.label_tag }}
+        {{ form.password2 }}
+        {% for error in form.password2.errors %}
+          <div class="error">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <button type="submit">Register</button>
+    </form>
+  </div>
 
 </body>
 </html>

@@ -148,12 +148,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.Employee'  # Point to your custom model
 
-LOGIN_URL = '/login/'  # Where to redirect for login
-LOGIN_REDIRECT_URL = '/'  # Where to redirect after login
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    # Add any custom backends if needed
+]
 
 
-
-
-
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SECURE = True  # If using HTTPS
+CSRF_COOKIE_SECURE = True
 
 

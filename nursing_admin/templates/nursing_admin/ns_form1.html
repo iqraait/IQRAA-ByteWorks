@@ -1,0 +1,484 @@
+<!-- user login dashboard  -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Form 1 - Fill and View</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      overflow-x: hidden; 
+  width: 100%;
+    }
+
+    .dashboard-wrapper {
+      display: flex;
+      min-height: 100vh;
+      flex-wrap: nowrap;
+  overflow-x: hidden;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px;
+    }
+
+    .logo {
+  height: 60px;
+  width: auto;
+  display: block;
+  margin: 0 auto 20px;
+}
+
+
+    .main-panel {
+      flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;  /* Ensure it doesn't overflow */
+  overflow-x: hidden;
+    }
+
+    .top-nav {
+  background-color: #34495e;
+  color: white;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* 🔁 Allows wrapping on smaller screens */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.top-nav span {
+  white-space: nowrap;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+
+    .tab-buttons {
+      display: flex;
+      border-bottom: 1px solid #ccc;
+      padding: 10px 20px;
+    }
+
+    .tab-buttons button {
+      background: none;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #555;
+    }
+
+    .tab-buttons button.active {
+      border-bottom: 2px solid #007bff;
+      color: #000;
+    }
+
+    .content-section {
+      padding: 20px;
+      width: 100%;
+    }
+
+    .form-container, .table-container {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .info-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .info-row div {
+      flex: 1;
+      margin: 5px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="number"] {
+      width: 80%;
+      padding: 6px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .instructions {
+      background-color: #fdf5d0;
+      border: 1px solid #bdb76b;
+      padding: 10px;
+      margin: 20px 0;
+      font-size: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #e0e0e0;
+    }
+
+    .section-header td {
+      background-color: #f2f2f2;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    .submit-section {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    button[type="submit"] {
+      background-color: #2ecc71;
+      color: white;
+      padding: 10px 25px;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #27ae60;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #successMessage {
+      color: green;
+      font-weight: bold;
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .info-row {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        text-align: center;
+      }
+      .main-panel {
+        width: 100%;
+      }
+      /* .acknowledge-btn {
+  padding: 4px 10px;
+  font-size: 13px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  justify-content: center;
+}
+
+.acknowledge-btn:hover {
+  background-color: #2980b9;
+} */
+.other-form {
+  width: 100%;
+  padding: 20px 25px;
+  border-radius: 6px;
+  border: none;
+  background-color: transparent;
+  font-size: 14px;
+  cursor: pointer;
+  background-position: right 12px center;
+  background-size: 10px 7px;
+  margin-top: 20px;
+}
+
+.form-select:hover,
+.form-select:focus {
+  background-color: #3a5773;
+  outline: none;
+}
+
+
+      .tab-buttons {
+        flex-direction: column;
+        align-items: start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-wrapper">
+    <aside class="sidebar">
+      <img src="{% static 'users/images/logo.png' %}" alt="Company Logo" class="logo"/>
+      <label for="formSelector" style="margin-top: 90px;">Forms</label>
+      <select id="formSelector" style="margin-top: 0px;background-color: whitesmoke;height: 40px;border: 1px;color: black;border-radius: 10px;">
+        <option value="">-- Other Forms --</option>
+        <option value="/form1-url">Staff Competency Assessment</option>
+        <option value="/form2-url">Form 2 </option>
+        <option value="/form3-url">Form 3 </option>
+        <option value="/form3-url">Form 3 </option>
+      </select>
+    </aside>
+
+    <div class="main-panel">
+      <header class="top-nav">
+        <h3>DASHBOARD OVERVIEW</h3>
+        <span>Sign out</span>
+      </header>
+
+      <div class="tab-buttons">
+        <button id="btnForm" class="active">Fill Form</button>
+        <button id="btnSubmitted">Submitted Forms</button>
+      </div>
+
+      <div class="content-section">
+        <!-- Fill Form Section -->
+        <div id="formSection" class="form-container">
+          <h2>Staff Competency Assessment</h2>
+          <form id="assessmentForm">
+            <div class="info-row">
+              <div>
+                <label for="staffName">Name of Staff:</label>
+                <input type="text" id="staffName" required />
+              </div>
+              <div>
+                <label for="employeeId">Employee ID:</label>
+                <input type="text" id="employeeId" required />
+              </div>
+            </div>
+            <div class="info-row">
+              <div>
+                <label for="designation">Designation:</label>
+                <input type="text" id="designation" required />
+              </div>
+              <div>
+                <label for="doj">DOJ:</label>
+                <input type="text" id="doj" required />
+              </div>
+            </div>
+            <div class="info-row">
+              <div>
+                <label for="location">Location:</label>
+                <input type="text" id="location" required />
+              </div>
+            </div>
+
+            <div class="instructions">
+              <strong>INSTRUCTIONS:</strong>
+              <ol>
+                <li>This evaluation can be done by unit In-Charge or Area Supervisor.</li>
+                <li>Evaluation is based on rating scale below.</li>
+              </ol>
+              <p><strong>Rating Scale:</strong> 1 - Rarely, 2 - Sometimes, 3 - Mostly, 4 - Always</p>
+            </div>
+
+            <!-- You can add more table rows as needed -->
+            <table>
+              <thead>
+                <tr>
+                  <th>S.No.</th>
+                  <th>Criteria</th>
+                  <th>Date:</th>
+                  <th>&lt;1 Month</th>
+                  <th>3rd Month</th>
+                  <th>6th Month</th>
+                  <th>12th Month</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="section-header">
+                  <td colspan="7">I. Appearance and Behaviour</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Punctual and regular in attendance, positive attitude</td>
+                  <td><input type="date" /></td>
+                  <td><input type="number" min="1" max="4" /></td>
+                  <td><input type="number" min="1" max="4" /></td>
+                  <td><input type="number" min="1" max="4" /></td>
+                  <td><input type="number" min="1" max="4" /></td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Punctual and regular in attendance, positive attitude</td>
+                  <td><input type="date" /></td>
+                  <td><input type="number" min="1" max="4" /></td>
+                  <td><input type="number" min="1" max="4" /></td>
+                  <td><input type="number" min="1" max="4" /></td>
+                  <td><input type="number" min="1" max="4" /></td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Punctual and regular in attendance, positive attitude</td>
+                  <td><input type="date" /></td>
+                  <td><input type="number" min="1" max="4" /></td>
+                  <td><input type="number" min="1" max="4" /></td>
+                  <td><input type="number" min="1" max="4" /></td>
+                  <td><input type="number" min="1" max="4" /></td>
+                </tr>
+                     <tr class="section-header">
+                  <td colspan="7">II. Appearance and Behaviour</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Punctual and regular in attendance, positive attitude</td>
+                  <td><input type="date" /></td>
+                  <td><input type="number" min="1" max="4" /></td>
+                  <td><input type="number" min="1" max="4" /></td>
+                  <td><input type="number" min="1" max="4" /></td>
+                  <td><input type="number" min="1" max="4" /></td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Punctual and regular in attendance, positive attitude</td>
+                  <td><input type="date" /></td>
+                  <td><input type="number" min="1" max="4" /></td>
+                  <td><input type="number" min="1" max="4" /></td>
+                  <td><input type="number" min="1" max="4" /></td>
+                  <td><input type="number" min="1" max="4" /></td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Punctual and regular in attendance, positive attitude</td>
+                  <td><input type="date" /></td>
+                  <td><input type="number" min="1" max="4" /></td>
+                  <td><input type="number" min="1" max="4" /></td>
+                  <td><input type="number" min="1" max="4" /></td>
+                  <td><input type="number" min="1" max="4" /></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="submit-section">
+              <button type="submit">Submit</button>
+            </div>
+            <p id="successMessage" style="display: none;">Form submitted successfully!</p>
+          </form>
+        </div>
+
+      <!-- Submitted Section -->
+<div id="submittedSection" class="table-container hidden">
+  <h2>Submitted Forms</h2>
+  <table id="submittedTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Employee ID</th>
+        <th>Designation</th>
+        <th>Location</th>
+        <th>Form</th>
+        <th>Acknowledge</th> 
+      </tr>
+    </thead>
+    <tbody>
+      <!-- table via JS -->
+    </tbody>
+  </table>
+</div>
+
+
+<script>
+  const btnForm = document.getElementById('btnForm');
+  const btnSubmitted = document.getElementById('btnSubmitted');
+  const formSection = document.getElementById('formSection');
+  const submittedSection = document.getElementById('submittedSection');
+  const submittedTable = document.getElementById('submittedTable').querySelector('tbody');
+  const form = document.getElementById('assessmentForm');
+  const successMessage = document.getElementById("successMessage");
+
+  // Load stored data
+  let submittedForms = JSON.parse(localStorage.getItem('submittedForms')) || [];
+
+  const renderSubmittedForms = () => {
+    submittedTable.innerHTML = '';
+    submittedForms.forEach((item, index) => {
+      submittedTable.innerHTML += `
+        <tr>
+          <td>${item.name}</td>
+          <td>${item.id}</td>
+          <td>${item.desig}</td>
+          <td>${item.location}</td>
+          <td></td>
+          <td>
+            <button class="acknowledge-btn" data-index="${index}">✔</button>
+          </td>
+        </tr>`;
+    });
+
+   // Acknowledge button click handler ................
+  
+  };
+
+  renderSubmittedForms();
+
+  btnForm.addEventListener('click', () => {
+    btnForm.classList.add('active');
+    btnSubmitted.classList.remove('active');
+    formSection.classList.remove('hidden');
+    submittedSection.classList.add('hidden');
+  });
+
+  btnSubmitted.addEventListener('click', () => {
+    btnForm.classList.remove('active');
+    btnSubmitted.classList.add('active');
+    formSection.classList.add('hidden');
+    submittedSection.classList.remove('hidden');
+    renderSubmittedForms();
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const name = document.getElementById('staffName').value;
+    const id = document.getElementById('employeeId').value;
+    const desig = document.getElementById('designation').value;
+    const doj = document.getElementById('doj').value;
+    const location = document.getElementById('location').value;
+
+    submittedForms.push({ name, id, desig, doj, location });
+
+    localStorage.setItem('submittedForms', JSON.stringify(submittedForms));
+
+    form.reset();
+    successMessage.style.display = 'block';
+
+    setTimeout(() => {
+      successMessage.style.display = 'none';
+    }, 3000);
+  });
+</script>
+
+</body>
+</html>
