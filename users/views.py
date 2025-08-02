@@ -57,57 +57,71 @@ class FirstDashBoard(TemplateView):
 
 
 
-
-
-
-
-"""class for the LoginView with iqraa_id & password"""
-
 class EmployeeLoginView(LoginView):
-    redirect_authenticated_user = True  # if set True this will automatically logged user away from the login page when try to access
-    form_class = EmployeeLoginForm      # login form inside the forms.py
-    template_name = 'users/login.html' 
+    template_name = 'users/login.html'
+    success_url = reverse_lazy('nursing_department:ns_form_1')
+    form_class = EmployeeLoginForm
+    
+    # redirect_authenticated_user = True
 
 
-    def form_invalid(self, form):     # build in function for form data checking
-        messages.error(self.request, 'Invalid Credentials')
-        return self.render_to_response(self.get_context_data(form=form))       
 
-    def get_success_url(self):
-        return ('register') 
+    # def get_success_url(self):
+    #     return self.success_url
 
 
-    def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return self._redirect_authenticated_user(request.user)
-        form = self.form_class()
-        return render(request, self.template_name, {'form': form})
+
+
+# """class for the LoginView with iqraa_id & password"""
+
+# class EmployeeLoginView(LoginView):
+#     redirect_authenticated_user = True  # if set True this will automatically logged user away from the login page when try to access
+#     form_class = EmployeeLoginForm      # login form inside the forms.py
+#     template_name = 'users/login.html' 
+
+#     def get(self, request, *args, **kwargs):
+#         if request.user.is_authenticated:
+#             return self._redirect_authenticated_user(request.user)
+#         form = self.form_class()
+#         return render(request, self.template_name, {'form': form})
     
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            iqraa_id = form.cleaned_data['iqraa_id']
-            password = form.cleaned_data['password']
-            user = authenticate(request, username=iqraa_id, password=password)
+
+#     def get_success_url(self):
+#         return ('login') 
+
+#     def form_invalid(self, form):     # build in function for form data checking
+#         messages.error(self.request, 'Invalid Credentials')
+#         return self.render_to_response(self.get_context_data(form=form))       
+
+
+
+
+
+#     def post(self, request, *args, **kwargs):
+#         form = self.form_class(request.POST)
+#         if form.is_valid():
+#             iqraa_id = form.cleaned_data['iqraa_id']
+#             password = form.cleaned_data['password']
+#             user = authenticate(request, username=iqraa_id, password=password)
             
-            if user is not None:
-                login(request, user)
-                return self._redirect_authenticated_user(user)
-            else:
-                form.add_error(None, "Invalid Iqraa ID or password")
+#             if user is not None:
+#                 login(request, user)
+#                 return self._redirect_authenticated_user(user)
+#             else:
+#                 form.add_error(None, "Invalid Iqraa ID or password")
         
-        return render(request, self.template_name, {'form': form})
+#         return render(request, self.template_name, {'form': form})
     
 
-    def _redirect_authenticated_user(self, user):
-        if user.is_superuser:
-            return redirect('admin_panel')
-        elif not user.is_staff and hasattr(user, 'department'):
-            if user.department.name == "Nursing_station":
-                return redirect('nursing_station:dashboard')
-        # Add more conditions for other departments as needed
-        return redirect('default_dashboard')  # Fallback for other users
+#     def _redirect_authenticated_user(self, user):
+#         if user.is_superuser:
+#             return redirect('admin_panel')
+#         elif not user.is_staff and hasattr(user, 'department'):
+#             if user.department.name == "Nursing_station":
+#                 return redirect('nursing_station:dashboard')
+#         # Add more conditions for other departments as needed
+#         return redirect('default_dashboard')  # Fallback for other users
     
 
 
@@ -119,16 +133,19 @@ class EmployeeLoginView(LoginView):
 
 
 
-# """class after staff login""",]
 
 
-# class userDashboardView(TemplateView):
-#     template_name = 'users/user_dashboard.html'
-#     def dispatch(self, request, *args, **kwargs):
-#         # Restrict access to only logged-in staff
-#         if not request.user.is_authenticated or not request.user.is_staff:
-#             return self.handle_no_permission()
-#         return super().dispatch(request, *args, **kwargs)
-    
+
+
+
+
+
+
+
+
+
+
+
+
 
 

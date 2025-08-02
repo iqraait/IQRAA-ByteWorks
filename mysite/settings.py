@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users'
+    'users',
+    'nursing_department'
 ]
 
 MIDDLEWARE = [
@@ -160,3 +161,22 @@ SESSION_COOKIE_SECURE = True  # If using HTTPS
 CSRF_COOKIE_SECURE = True
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# LOGIN_URL = 'login'  # Name of your login URL pattern
+# LOGIN_REDIRECT_URL = 'default_dashboard'  # Fallback redirect

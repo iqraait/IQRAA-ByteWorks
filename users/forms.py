@@ -30,7 +30,7 @@ class EmployeeRegistrationForm(UserCreationForm):
 """Employee Login Form"""
 
 class EmployeeLoginForm(AuthenticationForm):
-    username = forms.IntegerField(
+    iqraa_id = forms.IntegerField(
         label="Iqraa ID",
         widget=forms.NumberInput(attrs={'autofocus': True}))
     
