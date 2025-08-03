@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import StaffDashboard,StaffDashBoardForAdmin
+from .views import StaffDashboard,StaffDashBoardForAdmin,FormViewClass
 
 app_name = 'nursing_department'  # Must have this namespace
 
@@ -8,7 +8,8 @@ app_name = 'nursing_department'  # Must have this namespace
 urlpatterns = [
 
         path('staffDashB0ard',StaffDashboard.as_view(),name='staffdashboard'),
-        path('NursingAdminDashB0ard',StaffDashBoardForAdmin.as_view(),name='NursingAdminDashboard')
+        path('NursingAdminDashB0ard',StaffDashBoardForAdmin.as_view(),name='NursingAdminDashboard'),
+        path('form1',FormViewClass.as_view(),name='form1')
 
 ]
 

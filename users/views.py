@@ -59,70 +59,34 @@ class FirstDashBoard(TemplateView):
 
 class EmployeeLoginView(LoginView):
     template_name = 'users/login.html'
-    success_url = reverse_lazy('nursing_department:ns_form_1')
     form_class = EmployeeLoginForm
-    
-    # redirect_authenticated_user = True
+
+    REDIRECT_MAPPING ={
+        (True,'NURSING DEPARTMENT'):('nursing_department','NursingAdminDashboard'),
+        (False,'NURSING DEPARTMENT'):('nursing_department','staffdashboard')
+    }
 
 
+    DEFAULT_REDIRECT = ('users','main_dashboard')
 
-    # def get_success_url(self):
-    #     return self.success_url
+    def get_redirect_info(self,user):
+        """Direct database lookup without caching"""
+        if not user.department:
+            return self.DEFAULT_REDIRECT
 
-
-
-
-# """class for the LoginView with iqraa_id & password"""
-
-# class EmployeeLoginView(LoginView):
-#     redirect_authenticated_user = True  # if set True this will automatically logged user away from the login page when try to access
-#     form_class = EmployeeLoginForm      # login form inside the forms.py
-#     template_name = 'users/login.html' 
-
-#     def get(self, request, *args, **kwargs):
-#         if request.user.is_authenticated:
-#             return self._redirect_authenticated_user(request.user)
-#         form = self.form_class()
-#         return render(request, self.template_name, {'form': form})
-    
+        department_name = user.department.department_name
+        return self.REDIRECT_MAPPING.get((user.is_staff,department_name),self.DEFAULT_REDIRECT)
 
 
-#     def get_success_url(self):
-#         return ('login') 
-
-#     def form_invalid(self, form):     # build in function for form data checking
-#         messages.error(self.request, 'Invalid Credentials')
-#         return self.render_to_response(self.get_context_data(form=form))       
+    def get_success_url(self):
+        user = self.request.user
+        app_name,url_name = self.get_redirect_info(user)
+        url = reverse_lazy(f'{app_name}:{url_name}')
+        return url
 
 
 
 
-
-#     def post(self, request, *args, **kwargs):
-#         form = self.form_class(request.POST)
-#         if form.is_valid():
-#             iqraa_id = form.cleaned_data['iqraa_id']
-#             password = form.cleaned_data['password']
-#             user = authenticate(request, username=iqraa_id, password=password)
-            
-#             if user is not None:
-#                 login(request, user)
-#                 return self._redirect_authenticated_user(user)
-#             else:
-#                 form.add_error(None, "Invalid Iqraa ID or password")
-        
-#         return render(request, self.template_name, {'form': form})
-    
-
-#     def _redirect_authenticated_user(self, user):
-#         if user.is_superuser:
-#             return redirect('admin_panel')
-#         elif not user.is_staff and hasattr(user, 'department'):
-#             if user.department.name == "Nursing_station":
-#                 return redirect('nursing_station:dashboard')
-#         # Add more conditions for other departments as needed
-#         return redirect('default_dashboard')  # Fallback for other users
-    
 
 
 
