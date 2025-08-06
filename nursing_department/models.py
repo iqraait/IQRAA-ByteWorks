@@ -1,20 +1,45 @@
 from django.db import models
+from users.models import BaseModel,Employee
+from django.core.validators import MinValueValidator, MaxValueValidator
+from .constants_data import RatingScale
 
 
-
-class NursingModelListing(models.Model):
-
-    APPROVED_FORM_CHOICES =  [('pending','Pending'),('completed','Completed')]
-
-
-    iqraa_id = models.IntegerField(max_length=6,unique=True,blank=False,null=False,
-                                   help_text="6-digit unique identification number")
-    
+class Staff(BaseModel):
     staff_name = models.CharField(max_length=100)
-    nursing_station = models.CharField(max_length=100)
-    statues = models.CharField(max_length=15,choices=APPROVED_FORM_CHOICES,default='pending')
-    form_pdf = models.FileField(upload_to='pdfs')
-    uploaded_at = models.DateTimeField(auto_now_add=True)
+    designation = models.CharField(max_length=150)
+    employee_id = models.IntegerField(null=True, blank=True)
+    location = models.CharField(max_length=100)
 
     def __str__(self):
-        return str(self.iqraa_id)
+        return self.staff_name
+
+
+class Form1_assement(BaseModel):
+
+    EVALUATION_PERIODS = [
+        ('INITIAL', '<1 Month (Initial)'),
+        ('THREE_MONTH', '3rd Month'),
+        ('SIX_MONTH', '6th Month'),
+        ('TWELVE_MONTH', '12th Month'),
+    ]
+
+    evaluation_period = models.CharField(
+        max_length=12,
+        choices=EVALUATION_PERIODS,
+        default='INITIAL'
+    )
+        
+    staff = models.ForeignKey(Staff,on_delete=models.CASCADE)
+    evaluator_name = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True,blank=True)
+    total_score = models.IntegerField(null=True,blank=True)
+    percentage = models.FloatField(null=True,blank=True,validators=[MinValueValidator(0), MaxValueValidator(100)])
+    data = models.JSONField(default=dict)
+    evaluation_date = models.DateField(auto_now_add=True)
+
+
+
+
+    class Meta:
+        ordering = ['-evaluation_date']
+
+

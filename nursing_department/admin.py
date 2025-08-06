@@ -1,40 +1,37 @@
 from django.contrib import admin
-from .models import NursingModelListing
+from .models import Staff, Form1_assement
 
-@admin.register(NursingModelListing)
-class NursingModelListingAdmin(admin.ModelAdmin):
-    # Display fields in list view
-    list_display = ('iqraa_id', 'staff_name', 'nursing_station', 'statues', 'form_pdf','uploaded_at')
-    
-    # Make fields clickable for editing
-    list_display_links = ('iqraa_id', 'staff_name')
-    
-    # Add filters for these fields
-    list_filter = ('nursing_station', 'statues', 'uploaded_at')
-    
-    # Enable search on these fields
-    search_fields = ('iqraa_id', 'staff_name', 'nursing_station')
-    
-    # Fields to show in edit form (grouped logically)
-    fieldsets = (
-        ('Staff Information', {
-            'fields': ('iqraa_id', 'staff_name', 'nursing_station')
-        }),
-        ('Form Details', {
-            'fields': ('statues', 'form_pdf')
-        }),
-        ('Metadata', {
-            'fields': ('uploaded_at',),
-            'classes': ('collapse',)  # Makes this section collapsible
-        })
+@admin.register(Staff)
+class StaffAdmin(admin.ModelAdmin):
+    list_display = ('staff_name', 'designation', 'employee_id', 'location')
+    search_fields = ('staff_name', 'employee_id', 'designation')
+    list_filter = ('designation', 'location')
+
+@admin.register(Form1_assement)
+class Form1AssementAdmin(admin.ModelAdmin):
+    list_display = (
+        'staff',
+        'evaluation_period',
+        'evaluator_name',
+        'total_score',
+        'percentage',
+        'evaluation_date',
     )
-    
-    #    
-    # Custom list actions
-    actions = ['mark_as_completed']
+    list_filter = ('evaluation_period', 'evaluation_date')
+    search_fields = ('staff__staff_name', 'evaluator_name__name')  # Assuming Employee has a 'name' field
+    date_hierarchy = 'evaluation_date'
+    ordering = ('-evaluation_date',)
 
-    readonly_fields = ['uploaded_at']
-    
-    # Items per page
-    list_per_page = 25
-    
+    # Optional: Customize form display (e.g., grouping fields)
+    fieldsets = (
+        ('Basic Information', {
+            'fields': ('staff', 'evaluation_period', 'evaluator_name'),
+        }),
+        ('Scores', {
+            'fields': ('total_score', 'percentage', 'data'),
+        }),
+    )
+
+    # Optional: Make evaluator_name a searchable dropdown (if Employee has many records)
+    raw_id_fields = ('evaluator_name',)
+

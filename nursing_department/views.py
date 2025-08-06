@@ -1,4 +1,3 @@
-from .models import NursingModelListing
 from django.views.generic import TemplateView
 
 
@@ -11,7 +10,7 @@ class StaffDashboard(TemplateView):
         'form2':'nursing_admin/form2.html',
         'form3':'nursing_admin/from3.html'
     }
-
+    
 
 
 
