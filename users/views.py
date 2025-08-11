@@ -62,8 +62,8 @@ class EmployeeLoginView(LoginView):
     form_class = EmployeeLoginForm
 
     REDIRECT_MAPPING ={
-        (True,'NURSING DEPARTMENT'):('nursing_department','NursingAdminDashboard'),
-        (False,'NURSING DEPARTMENT'):('nursing_department','staffdashboard')
+        (True,'NURSING_DEPARTMENT'):('nursing_department','NursingAdminDashboard'),
+        (False,'NURSING_DEPARTMENT'):('nursing_department','staffdashboard')
     }
 
 

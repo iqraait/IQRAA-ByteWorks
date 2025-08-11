@@ -1,424 +1,316 @@
-<!-- user login dashboard  -->
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Form 1 - Fill and View</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-    }
-
-    .dashboard-wrapper {
-      display: flex;
-      min-height: 100vh;
-      flex-wrap: nowrap;
-    }
-
-    .sidebar {
-      width: 250px;
-      background-color: #2c3e50;
-      color: white;
-      padding: 20px;
-    }
-
-    .logo {
-      height: 60px;
-      width: auto;
-      margin-left: 20px;
-    }
-
-    .main-panel {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-    }
-
-    .top-nav {
-      background-color: #34495e;
-      color: white;
-      padding: 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-    }
-
-    .tab-buttons {
-      display: flex;
-      border-bottom: 1px solid #ccc;
-      padding: 10px 20px;
-    }
-
-    .tab-buttons button {
-      background: none;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-      font-weight: bold;
-      color: #555;
-    }
-
-    .tab-buttons button.active {
-      border-bottom: 2px solid #007bff;
-      color: #000;
-    }
-
-    .content-section {
-      padding: 20px;
-      width: 100%;
-    }
-
-    .form-container, .table-container {
-      background-color: rgba(255, 255, 255, 0.9);
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .info-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      margin-bottom: 10px;
-    }
-
-    .info-row div {
-      flex: 1;
-      margin: 5px;
-    }
-
-    label {
-      font-weight: bold;
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    input[type="text"],
-    input[type="date"],
-    input[type="number"] {
-      width: 80%;
-      padding: 6px 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    .instructions {
-      background-color: #fdf5d0;
-      border: 1px solid #bdb76b;
-      padding: 10px;
-      margin: 20px 0;
-      font-size: 14px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-      font-size: 14px;
-    }
-
-    th, td {
-      border: 1px solid #ccc;
-      padding: 8px;
-      text-align: left;
-    }
-
-    th {
-      background-color: #e0e0e0;
-    }
-
-    .section-header td {
-      background-color: #f2f2f2;
-      font-weight: bold;
-      font-style: italic;
-    }
-
-    .submit-section {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    button[type="submit"] {
-      background-color: #2ecc71;
-      color: white;
-      padding: 10px 25px;
-      border: none;
-      border-radius: 25px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    button[type="submit"]:hover {
-      background-color: #27ae60;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    #successMessage {
-      color: green;
-      font-weight: bold;
-      margin-top: 15px;
-      text-align: center;
-    }
-
-    @media (max-width: 768px) {
-      .info-row {
-        flex-direction: column;
-      }
-
-      .sidebar {
-        width: 100%;
-        text-align: center;
-      }
-
-      .main-panel {
-        width: 100%;
-      }
-
-      .tab-buttons {
-        flex-direction: column;
-        align-items: start;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANM-NICU Competency Assessment Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .document {
+            max-width: 1200px;
+            margin: 0 auto;
+            border: 1px solid #000;
+        }
+        .header {
+            text-align: center;
+            padding: 10px;
+            border-bottom: 1px solid #000;
+        }
+        .header h2 {
+            margin: 5px 0;
+        }
+        .info-row {
+            display: flex;
+            border-bottom: 1px solid #000;
+        }
+        .info-cell {
+            padding: 8px;
+            flex: 1;
+            border-right: 1px solid #000;
+        }
+        .info-cell:last-child {
+            border-right: none;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table th, .table td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+        .table th {
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+        .rating-scale {
+            background-color: #f9f9f9;
+            font-weight: bold;
+        }
+        .section-title {
+            font-weight: bold;
+            background-color: #e6e6e6;
+        }
+        .footer {
+            margin-top: 20px;
+            border-top: 1px solid #000;
+            padding-top: 10px;
+        }
+        .signature-area {
+            margin-top: 30px;
+        }
+        .signature-line {
+            border-top: 1px solid #000;
+            margin-top: 50px;
+            width: 300px;
+            display: inline-block;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-right {
+            text-align: right;
+        }
+    </style>
 </head>
 <body>
-  <div class="dashboard-wrapper">
-    <aside class="sidebar">
-      <img src="../images/iqraa-logo.png" alt="Company Logo" class="logo" />
-    </aside>
-
-    <div class="main-panel">
-      <header class="top-nav">
-        <h3>DASHBOARD OVERVIEW</h3>
-        <span>Sign out</span>
-      </header>
-
-      <div class="tab-buttons">
-        <button id="btnForm" class="active">Fill Form</button>
-        <button id="btnSubmitted">Submitted Forms</button>
-      </div>
-
-      <div class="content-section">
-        <!-- Fill Form Section -->
-        <div id="formSection" class="form-container">
-          <h2>Staff Competency Assessment</h2>
-          <form id="assessmentForm">
-            <div class="info-row">
-              <div>
-                <label for="staffName">Name of Staff:</label>
-                <input type="text" id="staffName" required />
-              </div>
-              <div>
-                <label for="employeeId">Employee ID:</label>
-                <input type="text" id="employeeId" required />
-              </div>
-            </div>
-            <div class="info-row">
-              <div>
-                <label for="designation">Designation:</label>
-                <input type="text" id="designation" required />
-              </div>
-              <div>
-                <label for="doj">DOJ:</label>
-                <input type="text" id="doj" required />
-              </div>
-            </div>
-            <div class="info-row">
-              <div>
-                <label for="location">Location:</label>
-                <input type="text" id="location" required />
-              </div>
-            </div>
-
-            <div class="instructions">
-              <strong>INSTRUCTIONS:</strong>
-              <ol>
-                <li>This evaluation can be done by unit In-Charge or Area Supervisor.</li>
-                <li>Evaluation is based on rating scale below.</li>
-              </ol>
-              <p><strong>Rating Scale:</strong> 1 - Rarely, 2 - Sometimes, 3 - Mostly, 4 - Always</p>
-            </div>
-
-            <!-- You can add more table rows as needed -->
-            <table>
-              <thead>
-                <tr>
-                  <th>S.No.</th>
-                  <th>Criteria</th>
-                  <th>Date:</th>
-                  <th>&lt;1 Month</th>
-                  <th>3rd Month</th>
-                  <th>6th Month</th>
-                  <th>12th Month</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="section-header">
-                  <td colspan="7">I. Appearance and Behaviour</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Punctual and regular in attendance, positive attitude</td>
-                  <td><input type="date" /></td>
-                  <td><input type="number" min="1" max="4" /></td>
-                  <td><input type="number" min="1" max="4" /></td>
-                  <td><input type="number" min="1" max="4" /></td>
-                  <td><input type="number" min="1" max="4" /></td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Punctual and regular in attendance, positive attitude</td>
-                  <td><input type="date" /></td>
-                  <td><input type="number" min="1" max="4" /></td>
-                  <td><input type="number" min="1" max="4" /></td>
-                  <td><input type="number" min="1" max="4" /></td>
-                  <td><input type="number" min="1" max="4" /></td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Punctual and regular in attendance, positive attitude</td>
-                  <td><input type="date" /></td>
-                  <td><input type="number" min="1" max="4" /></td>
-                  <td><input type="number" min="1" max="4" /></td>
-                  <td><input type="number" min="1" max="4" /></td>
-                  <td><input type="number" min="1" max="4" /></td>
-                </tr>
-                     <tr class="section-header">
-                  <td colspan="7">II. Appearance and Behaviour</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Punctual and regular in attendance, positive attitude</td>
-                  <td><input type="date" /></td>
-                  <td><input type="number" min="1" max="4" /></td>
-                  <td><input type="number" min="1" max="4" /></td>
-                  <td><input type="number" min="1" max="4" /></td>
-                  <td><input type="number" min="1" max="4" /></td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Punctual and regular in attendance, positive attitude</td>
-                  <td><input type="date" /></td>
-                  <td><input type="number" min="1" max="4" /></td>
-                  <td><input type="number" min="1" max="4" /></td>
-                  <td><input type="number" min="1" max="4" /></td>
-                  <td><input type="number" min="1" max="4" /></td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Punctual and regular in attendance, positive attitude</td>
-                  <td><input type="date" /></td>
-                  <td><input type="number" min="1" max="4" /></td>
-                  <td><input type="number" min="1" max="4" /></td>
-                  <td><input type="number" min="1" max="4" /></td>
-                  <td><input type="number" min="1" max="4" /></td>
-                </tr>
-              </tbody>
-            </table>
-
-            <div class="submit-section">
-              <button type="submit">Submit</button>
-            </div>
-            <p id="successMessage" style="display: none;">Form submitted successfully!</p>
-          </form>
+    <div class="document">
+        <div class="header">
+            <h2>Department of Nursing</h2>
+            <h3>Competency Assessment of ANM Staff</h3>
+            <h3>NICU</h3>
         </div>
-
-        <!-- Submitted Section -->
-        <div id="submittedSection" class="table-container hidden">
-          <h2>Submitted Forms</h2>
-          <table id="submittedTable">
+        
+        <div class="info-row">
+            <div class="info-cell"><strong>Name of staff:</strong> _____________________ <strong>Employee ID:</strong> _____________________</div>
+        </div>
+        <div class="info-row">
+            <div class="info-cell"><strong>Designation:</strong> _____________________ <strong>DOJ:</strong> _____________________</div>
+        </div>
+        <div class="info-row">
+            <div class="info-cell"><strong>Location:</strong> _____________________</div>
+        </div>
+        
+        <div class="info-row">
+            <div class="info-cell">
+                <strong>INSTRUCTIONS:</strong><br>
+                1. This evaluation can be done by unit In-Charge or Area Supervisor taking inputs from each other.<br>
+                2. Overall performance evaluation is based on rating scale given
+            </div>
+        </div>
+        
+        <div class="info-row">
+            <div class="info-cell">
+                <strong>Rating Scale (for I, II, III, IV parameters):</strong> 1- Rarely 2- Sometimes 3- Mostly 4- Always
+            </div>
+            <div class="info-cell">
+                <strong>Date:</strong> _____________________
+            </div>
+        </div>
+        
+        <table class="table">
             <thead>
-              <tr>
-                <th>Name</th>
-                <th>Employee ID</th>
-                <th>Designation</th>
-                <th>DOJ</th>
-                <th>Location</th>
-              </tr>
+                <tr>
+                    <th>S.No.</th>
+                    <th>Criteria</th>
+                    <th>&lt; 1 Month</th>
+                    <th>3rd Month</th>
+                    <th>6th Month</th>
+                    <th>12th Month</th>
+                </tr>
             </thead>
             <tbody>
-              <!-- Populated via JS -->
+                <!-- Section I -->
+                <tr class="section-title">
+                    <td colspan="6">I. Appearance and Behaviour</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Punctual and regular in attendance, has a positive attitude towards work & is receptive to corrections</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Meets professional grooming standards nails short, hair done, professionalism in uniform,shaved and smiles appropriately</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Takes initiative in updating knowledge and demonstrates improvement progressively.</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                
+                <!-- Section II -->
+                <tr class="section-title">
+                    <td colspan="6">II. Communication skill</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Friendly and courteous/Introduce self to patient/family and caregiver.</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Good listening skill</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Communicates clearly and effectively with team members and patient/patient's attendants and reports back to nursing officer/TL/ shift incharge as required</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Shift handoff communication is done effectively.</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                
+                <!-- Continue with other sections similarly -->
+                <!-- Section III -->
+                <tr class="section-title">
+                    <td colspan="6">III. Proactiveness and promptness</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Anticipates needs of patient and/or potential complications and takes corrective/preventive action on time</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <!-- Add remaining rows for all sections -->
+                
+                <!-- Rating Scale Section -->
+                <tr class="rating-scale">
+                    <td colspan="6">
+                        <strong>Rating Scale: 4-Proficient, 3-Competent, 2-Advanced Beginner, 1-Novice</strong>
+                    </td>
+                </tr>
+                
+                <!-- Section V -->
+                <tr class="section-title">
+                    <td colspan="6">V. Adherence to hospital policy (Infection control & isolation)</td>
+                </tr>
+                <tr>
+                    <td>14</td>
+                    <td>
+                        <strong>4</strong> - In addition to score 3, keeps herself updated about infection control practices and motives other staff to follow them<br>
+                        <strong>3</strong> - Confidently adheres to all infection control practices including hand hygiene, following aseptic measures in procedures, segregates biomedical waste appropriately & prevents needle stick injury & isolation protocol including barrier nursing precautions<br>
+                        <strong>2</strong> - Follows infection control practices & isolation protocols only when supervised<br>
+                        <strong>1</strong> - Has inadequate knowledge & does not follow infection control practices & isolation protocols
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                
+                <!-- Continue with remaining sections (VI-XI) similarly -->
+                
+                <!-- Total Score -->
+                <tr>
+                    <td colspan="2"><strong>Please mention mode of evaluation(O- Observation, D-Demonstration, V-Viva/Examination) in the scoring column</strong></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><strong>Total Score: (Maximum Score: 112)</strong></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><strong>Percentage :</strong> {(Total score/112)x100}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
             </tbody>
-          </table>
+        </table>
+        
+        <div class="footer">
+            <h3>RATING SCALE: (Based on Patricia Benner's Novice to Expert Theory)</h3>
+            <table class="table">
+                <tr>
+                    <td><strong>Expert</strong></td>
+                    <td>A nurse who has a deep connection and understanding of the situation, no longer relies on analytic principle; instead the expert has an intuitive grasp of situations that is utilized to determine actions</td>
+                    <td class="text-center">95-100</td>
+                </tr>
+                <tr>
+                    <td><strong>Proficient</strong></td>
+                    <td>A nurse who has a holistic understanding of the patient, thus having the power of decision making</td>
+                    <td class="text-center">85-95</td>
+                </tr>
+                <tr>
+                    <td><strong>Competent</strong></td>
+                    <td>A nurse who starts to plan his or her actions in terms of long-range goals based on considerable conscious, abstract, analytic contemplation of the problem</td>
+                    <td class="text-center">75-85</td>
+                </tr>
+                <tr>
+                    <td><strong>Advanced Beginner</strong></td>
+                    <td>A nurse who can demonstrate marginally acceptable performance, one who have coped with enough real situations</td>
+                    <td class="text-center">60-75</td>
+                </tr>
+                <tr>
+                    <td><strong>Novice</strong></td>
+                    <td>A beginner with no experience of the situation in which they are expected to perform.</td>
+                    <td class="text-center">&lt;60</td>
+                </tr>
+            </table>
+            
+            <p><strong>Overall Performance Evaluation -</strong> Expert/ Proficient/ Competent/ Advanced Beginner/ Novice (circle as appropriate)</p>
+            
+            <div class="signature-area">
+                <p><strong>Name & Signature Of Evaluator:</strong> _________________________________________</p>
+                <p><strong>Comments of the Reporting Incharge:</strong> ___________________________________</p>
+                <p><strong>Nurses Comments</strong> _____________________________________________________</p>
+                
+                <div style="margin-top: 50px;">
+                    <div style="display: inline-block; width: 30%;">
+                        <p><strong>Signature of the Employee:</strong></p>
+                        <div class="signature-line"></div>
+                    </div>
+                    <div style="display: inline-block; width: 30%; margin-left: 5%;">
+                        <p><strong>Signature of Incharge / Supervisor:</strong></p>
+                        <div class="signature-line"></div>
+                    </div>
+                    <div style="display: inline-block; width: 30%; margin-left: 5%;">
+                        <p><strong>Signature of Nursing superintendent / DNS with date:</strong></p>
+                        <div class="signature-line"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-
-  <script>
-    const btnForm = document.getElementById('btnForm');
-    const btnSubmitted = document.getElementById('btnSubmitted');
-    const formSection = document.getElementById('formSection');
-    const submittedSection = document.getElementById('submittedSection');
-    const submittedTable = document.getElementById('submittedTable').querySelector('tbody');
-    const form = document.getElementById('assessmentForm');
-    const successMessage = document.getElementById("successMessage");
-
-    // Load stored data
-    let submittedForms = JSON.parse(localStorage.getItem('submittedForms')) || [];
-
-    const renderSubmittedForms = () => {
-      submittedTable.innerHTML = '';
-      submittedForms.forEach(item => {
-        submittedTable.innerHTML += `
-          <tr>
-            <td>${item.name}</td>
-            <td>${item.id}</td>
-            <td>${item.desig}</td>
-            <td>${item.doj}</td>
-            <td>${item.location}</td>
-          </tr>`;
-      });
-    };
-
-    renderSubmittedForms();
-
-    btnForm.addEventListener('click', () => {
-      btnForm.classList.add('active');
-      btnSubmitted.classList.remove('active');
-      formSection.classList.remove('hidden');
-      submittedSection.classList.add('hidden');
-    });
-
-    btnSubmitted.addEventListener('click', () => {
-      btnForm.classList.remove('active');
-      btnSubmitted.classList.add('active');
-      formSection.classList.add('hidden');
-      submittedSection.classList.remove('hidden');
-      renderSubmittedForms();
-    });
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const name = document.getElementById('staffName').value;
-      const id = document.getElementById('employeeId').value;
-      const desig = document.getElementById('designation').value;
-      const doj = document.getElementById('doj').value;
-      const location = document.getElementById('location').value;
-
-      submittedForms.push({ name, id, desig, doj, location });
-
-      // Save to localStorage
-      localStorage.setItem('submittedForms', JSON.stringify(submittedForms));
-
-      form.reset();
-      successMessage.style.display = 'block';
-
-      setTimeout(() => {
-        successMessage.style.display = 'none';
-      }, 3000);
-    });
-  </script>
 </body>
 </html>

@@ -75,6 +75,12 @@ AUTH_USER_MODEL = 'users.Employee'
 
 
 
+DATE_INPUT_FORMATS = [
+    '%d/%m/%Y',   # 15/02/2025
+    '%Y-%m-%d',   # 2025-02-15 (browser default)
+]
+
+
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 

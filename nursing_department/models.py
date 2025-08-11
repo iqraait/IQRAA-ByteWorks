@@ -9,6 +9,7 @@ class Staff(BaseModel):
     designation = models.CharField(max_length=150)
     employee_id = models.IntegerField(null=True, blank=True)
     location = models.CharField(max_length=100)
+    date_of_join = models.DateField(null=True, blank=True)  # Allows null values
 
     def __str__(self):
         return self.staff_name
@@ -26,7 +27,6 @@ class Form1_assement(BaseModel):
     evaluation_period = models.CharField(
         max_length=12,
         choices=EVALUATION_PERIODS,
-        default='INITIAL'
     )
         
     staff = models.ForeignKey(Staff,on_delete=models.CASCADE)
@@ -41,5 +41,9 @@ class Form1_assement(BaseModel):
 
     class Meta:
         ordering = ['-evaluation_date']
+
+
+
+
 
 

@@ -135,6 +135,14 @@ FORM1_RATING_SCALE_CRITERIA = {
 
 
 
+
+
+
+
+
+
+
+
 PROCEDURAL_COMPETENCE_CRITERIA = {
     "XI": {
         "name": "Procedural competence",
@@ -182,23 +190,11 @@ FORM1_FULL_STRUCTURE = {
     **PROCEDURAL_COMPETENCE_CRITERIA
 }
 
-# # # Helper functions
-# def get_max_score():
-#     """Calculate maximum possible score for the form"""
-#     max_score = 0
-    
-#     # Frequency-based items (1-4 scale)
-#     for section in FORM1_CRITERIA.values():
-#         max_score += len(section["items"]) * 4
-    
-#     # Rating scale items (1-4 scale)
-#     for section in FORM1_RATING_SCALE_CRITERIA.values():
-#         max_score += len(section["items"]) * 4
-    
-#     # Procedural items (1-4 scale)
-#     for section in PROCEDURAL_COMPETENCE_CRITERIA.values():
-#         max_score += len(section["items"]) * 4
-    
-#     return max_score
 
-# MAX_FORM_SCORE = get_max_score()
+
+
+
+
+
+
+
