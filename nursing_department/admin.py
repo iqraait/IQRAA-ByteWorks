@@ -10,7 +10,7 @@ class StaffAdmin(admin.ModelAdmin):
 @admin.register(Form1_assement)
 class Form1AssementAdmin(admin.ModelAdmin):
     list_display = (
-        'staff',
+
         'evaluation_period',
         'evaluator_name',
         'total_score',

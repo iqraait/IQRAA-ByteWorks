@@ -30,7 +30,6 @@ class Form1_assement(BaseModel):
         choices=EVALUATION_PERIODS,
     )
         
-    staff = models.ForeignKey(Staff,on_delete=models.CASCADE)
     evaluator_name = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True,blank=True)
     total_score = models.IntegerField(null=True,blank=True)
     percentage = models.FloatField(null=True,blank=True,validators=[MinValueValidator(0), MaxValueValidator(100)])

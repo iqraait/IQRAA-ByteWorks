@@ -7,6 +7,7 @@ from django.views import View
 from django.contrib.auth import login,authenticate
 from django.urls import reverse_lazy
 from .models import Employee
+from django.contrib.auth import logout
 from django.contrib import messages
 
 
@@ -44,6 +45,15 @@ class EmployeeRegistrationView(View):
 
         return render(request, self.template_name, {'form': form})
 
+
+
+"""class for Employee Logout"""
+
+class EmployeeLogoutView(View):
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        messages.success(request, "You have been successfully logged out.")
+        return redirect('login') 
 
 
 

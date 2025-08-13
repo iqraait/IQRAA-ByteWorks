@@ -3,6 +3,8 @@ from .forms import NicuForm,NicuFormAssementData
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from .constants_data import FORM1_FULL_STRUCTURE
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 
 
@@ -33,21 +35,6 @@ class PreviewForm(TemplateView):
         
         return context
     
-#     def post(self,request,*args,**kwargs):
-#         form1 = NicuForm(request.POST,prefix = "form1")
-#         form2 = NicuFormAssementData(request.POST,prefix = "form2")
-
-#         if form1.is_valid() and form2.is_valid():
-#             form1.save()
-#             form2.save()
-        
-#             messages.success(request, "Form submitted successfully!")
-
-#             return redirect(self.success_url)
-    
-#         return render(request,self.template_name,{'form1':form1,"form2":form2}
-# )
-
     def post(self, request, *args, **kwargs):
         form1 = NicuForm(request.POST, prefix="form1")  # Staff form
         form2 = NicuFormAssementData(request.POST, prefix="form2")  # Assessment form
