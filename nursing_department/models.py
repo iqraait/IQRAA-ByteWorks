@@ -1,7 +1,8 @@
 from django.db import models
 from users.models import BaseModel,Employee
+from django.db.models import JSONField  # Django ≥ 3.1
 from django.core.validators import MinValueValidator, MaxValueValidator
-from .constants_data import RatingScale
+# from .constants_data import RatingScale
 
 
 class Staff(BaseModel):
@@ -33,7 +34,7 @@ class Form1_assement(BaseModel):
     evaluator_name = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True,blank=True)
     total_score = models.IntegerField(null=True,blank=True)
     percentage = models.FloatField(null=True,blank=True,validators=[MinValueValidator(0), MaxValueValidator(100)])
-    data = models.JSONField(default=dict)
+    data = JSONField(default=dict)
     evaluation_date = models.DateField(auto_now_add=True)
 
 

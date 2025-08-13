@@ -1,312 +1,199 @@
+
+
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ANM-NICU Competency Assessment Tool</title>
-<style>
-    body {
-        font-family: 'Segoe UI', Arial, sans-serif;
-        margin: 0;
-        padding: 20px;
-        background-color: #f9f9f9;
-        color: #000;
-    }
-    .document {
-        max-width: 1000px;
-        margin: auto;
-        background: #fff;
-        padding: 20px 40px;
-        border: 1px solid #ccc;
-    }
-    .header {
-        text-align: center;
-        border-bottom: 2px solid #000;
-        padding-bottom: 10px;
-        margin-bottom: 20px;
-    }
-    .header h2, .header h3 {
-        margin: 5px 0;
-    }
-    .info-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-    }
-    .info-table td {
-        border: 1px solid #000;
-        padding: 6px;
-        vertical-align: middle;
-    }
-    .instructions {
-        border: 1px solid #000;
-        background: #f2f2f2;
-        padding: 10px;
-        margin-bottom: 20px;
-        font-size: 14px;
-    }
-    .rating-scale {
-        border: 1px solid #000;
-        padding: 10px;
-        margin-bottom: 20px;
-        font-size: 14px;
-    }
-    table.criteria-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 14px;
-        margin-bottom: 20px;
-    }
-    table.criteria-table th, table.criteria-table td {
-        border: 1px solid #000;
-        padding: 8px;
-        vertical-align: top;
-    }
-    table.criteria-table th {
-        background: #f0f0f0;
-        text-align: center;
-    }
-    .footer-section {
-        margin-top: 20px;
-        font-size: 14px;
-    }
-    .signature-line {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 40px;
-    }
-    .signature-line div {
-        width: 30%;
-        text-align: center;
-        border-top: 1px solid #000;
-        padding-top: 5px;
-    }
-</style>
-</head>
-<body>
-<form method="post" novalidate>
-{% csrf_token %}
-
-<div class="document">
-
-    <!-- Header -->
-    <div class="header">
-        <h2>Department of Nursing</h2>
-        <h3>Competency Assessment of ANM Staff</h3>
-        <h3>NICU</h3>
-    </div>
-
-    <!-- Staff Info -->
-    <table class="info-table">
-        <tr>
-            <td><b>Name of staff:</b> {{ form1.staff_name }}</td>
-            <td><b>Employee ID:</b> {{ form1.employee_id }}</td>
-        </tr>
-        <tr>
-            <td><b>Designation:</b> {{ form1.designation }}</td>
-            <td><b>DOJ:</b> {{ form1.date_of_join }}</td>
-        </tr>
-        <tr>
-            <td colspan="2"><b>Location:</b> {{ form1.location }}</td>
-        </tr>
-    </table>
-
-    <!-- Instructions -->
-    <div class="instructions">
-        <b>INSTRUCTIONS:</b><br>
-        1. This evaluation can be done by unit In-Charge or Area Supervisor taking inputs from each other.<br>
-        2. Overall performance evaluation is based on rating scale given.
-    </div>
-
-    <!-- Rating Scale -->
-    <div class="rating-scale">
-        <b>Rating Scale (for I, II, III, IV parameters):</b><br>
-        1 - Rarely &nbsp;&nbsp; 2 - Sometimes &nbsp;&nbsp; 3 - Mostly &nbsp;&nbsp; 4 - Always
-    </div>
-    {% load static %}
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANM-NICU Competency Assessment Tool</title>
+    <title>Staff Competency Assessment</title>
     <style>
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
             margin: 0;
             padding: 20px;
-            background-color: #f9f9f9;
-            color: #000;
         }
-        .document {
-            max-width: 1000px;
+
+        .container {
+            max-width: 1100px;
             margin: auto;
             background: #fff;
-            padding: 20px 40px;
-            border: 1px solid #ccc;
+            padding: 20px 30px;
+            border-radius: 6px;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
         }
-        .header {
-            text-align: center;
-            border-bottom: 2px solid #000;
-            padding-bottom: 10px;
+
+        h2 {
+            margin: 0 0 20px 0;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px 20px;
+            margin-bottom: 15px;
+        }
+
+        .info-grid-full {
+            grid-column: span 2;
+        }
+
+        .info-grid label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .info-grid input {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .instructions {
+            background-color: #fff7d6;
+            padding: 12px;
+            border: 1px solid #e0d6a0;
+            font-size: 14px;
             margin-bottom: 20px;
         }
-        .header h2, .header h3 {
-            margin: 5px 0;
-        }
-        .info-table {
+
+        .criteria-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            font-size: 14px;
         }
-        .info-table td {
-            border: 1px solid #000;
+
+        .criteria-table th{
+            border: 1px solid #dcb3b3;
+            background-color: #007bff;
             padding: 6px;
+            text-align: left;
             vertical-align: middle;
         }
-        .instructions {
-            border: 1px solid #000;
-            background: #f2f2f2;
-            padding: 10px;
-            margin-bottom: 20px;
-            font-size: 14px;
+
+        .criteria-table td {
+            border: 1px solid #ccc;
+            padding: 6px;
+            text-align: left;
+            vertical-align: middle;
         }
-        .rating-scale {
-            border: 1px solid #000;
-            padding: 10px;
-            margin-bottom: 20px;
-            font-size: 14px;
+
+        .criteria-table th {
+            background-color: #f0f0f0;
+            font-weight: bold;
         }
-        table.criteria-table {
+
+        .criteria-table td:first-child {
+            text-align: center;
+        }
+
+        .criteria-table input,
+        .criteria-table select {
             width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-        table.criteria-table th, table.criteria-table td {
-            border: 1px solid #000;
-            padding: 8px;
-            vertical-align: top;
-        }
-        table.criteria-table th {
-            background: #f0f0f0;
+            padding: 4px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
             text-align: center;
         }
-        .footer-section {
+
+        button {
             margin-top: 20px;
-            font-size: 14px;
+            padding: 8px 16px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
         }
-        .signature-line {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 40px;
-        }
-        .signature-line div {
-            width: 30%;
-            text-align: center;
-            border-top: 1px solid #000;
-            padding-top: 5px;
+
+        button:hover {
+            background: #0056b3;
         }
     </style>
-    </head>
-    <body>
-    <form method="post" novalidate>
-    {% csrf_token %}
-    
-    <div class="document">
-    
-        <!-- Header -->
-        <div class="header">
-            <h2>Department of Nursing</h2>
-            <h3>Competency Assessment of ANM Staff</h3>
-            <h3>NICU</h3>
-        </div>
-    
-        <!-- Staff Info -->
-        <table class="info-table">
-            <tr>
-                <td><b>Name of staff:</b> {{ form1.staff_name }}</td>
-                <td><b>Employee ID:</b> {{ form1.employee_id }}</td>
-            </tr>
-            <tr>
-                <td><b>Designation:</b> {{ form1.designation }}</td>
-                <td><b>DOJ:</b> {{ form1.date_of_join }}</td>
-            </tr>
-            <tr>
-                <td colspan="2"><b>Location:</b> {{ form1.location }}</td>
-            </tr>
-        </table>
-    
-        <!-- Instructions -->
-        <div class="instructions">
-            <b>INSTRUCTIONS:</b><br>
-            1. This evaluation can be done by unit In-Charge or Area Supervisor taking inputs from each other.<br>
-            2. Overall performance evaluation is based on rating scale given.
-        </div>
-    
-        <!-- Rating Scale -->
-        <div class="rating-scale">
-            <b>Rating Scale (for I, II, III, IV parameters):</b><br>
-            1 - Rarely &nbsp;&nbsp; 2 - Sometimes &nbsp;&nbsp; 3 - Mostly &nbsp;&nbsp; 4 - Always
-        </div>
-    
-        <!-- Criteria Table -->
-        {% for section_key, section_data in FORM1_FULL_STRUCTURE.items %}
-        <h4>{{ section_data.name }}</h4>
-        <div class="table-container">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Staff Competency Assessment</h2>
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            <!-- Staff Info -->
+            <div class="info-grid">
+                <div>
+                    <label>Name of Staff: {{ form1.staff_name }}</label>
+                    <input type="text" name="" value="{{ form1.staff_name.value|default_if_none:'' }}">
+                </div>
+                <div>
+                    <label>Employee ID:{{ form1.employee_id }}</label>
+                    <input type="text" name="" value="{{ form1.employee_id.value|default_if_none:'' }}">
+                </div>
+                <div>
+                    <label>Designation:{{ form1.designation }}</label>
+                    <input type="text" name="" value="{{ form1.designation.value|default_if_none:'' }}">
+                </div>
+                <div>
+                    <label>DOJ: {{ form1.date_of_join }}</label>
+                    <input type="date" name="" value="{{ form1.date_of_join.value|default_if_none:'' }}">
+                </div>
+                <div class="info-grid-full">
+                    <label>Location: {{ form1.location }}</label>
+                    <input type="text" name="" value="{{ form1.location.value|default_if_none:'' }}">
+                </div>
+            </div>
+
+            <!-- Instructions -->
+            <div class="instructions">
+                <p><strong>INSTRUCTIONS:</strong></p>
+                <ol style="margin: 5px 0 5px 18px;">
+                    <li>This evaluation can be done by unit In-Charge or Area Supervisor.</li>
+                    <li>Evaluation is based on rating scale below.</li>
+                </ol>
+                <p>Rating Scale: 1 - Rarely, 2 - Sometimes, 3 - Mostly, 4 - Always</p>
+            </div>
+
+            <!-- Criteria Table -->
             <table class="criteria-table">
                 <thead>
                     <tr>
-                        <th style="width:5%">S.No.</th>
+                        <th>S.No.</th>
                         <th>Criteria</th>
-                        <th style="width:35%">Rating</th>
+                        <th>Date</th>
+                        <td>
+                <select name="month_{{ forloop.counter }}">
+                    <option value="">-- Select Month --</option>
+                    <option value="1">&lt;1 Month</option>
+                    <option value="3">3 Months</option>
+                    <option value="4">4 Months</option>
+                    <option value="6">6 Months</option>
+                </select>
+            </td>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for item_key, item_value in section_data.items.items %}
+                    {% for field in form2 %}
                     <tr>
-                        <td>{{ item_key }}</td>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ field.label }}</td>
+                        <td><input type="date" name="date_{{ forloop.counter }}"></td>
                         <td>
-                            {% if section_data.type == 'procedural' %}
-                                {{ item_value.name }}
-                            {% elif section_data.type == 'rating' %}
-                                {{ item_value.0 }}
-                            {% else %}
-                                {{ item_value }}
-                            {% endif %}
-                        </td>
-                        <td>
-                            {% with field_name="section_"|add:section_key|add:"_item_"|add:item_key %}
-                                {{ form2[field_name] }}
-                            {% endwith %}
                         </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-        </div>
-        {% endfor %}
-    
-        <!-- Footer -->
-        <div class="footer-section">
-            <p><b>Total Score:</b> ___________ (Maximum Score: 112)</p>
-            <p><b>Percentage:</b> ___________ %</p>
-            <p><b>Overall Performance Evaluation:</b> Expert / Proficient / Competent / Advanced Beginner / Novice</p>
-        </div>
-    
-        <!-- Signatures -->
-        <div class="signature-line">
-            <div>Signature of Employee</div>
-            <div>Signature of Incharge / Supervisor</div>
-            <div>Signature of Nurse Educator</div>
-        </div>
-    </div>
-    
-    <button type="submit" class="submit-btn">Submit</button>
-    
-    </form>
-    </body>
-    </html>
-    
 
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+
+</html>
