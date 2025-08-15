@@ -151,6 +151,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # This can be any name
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+SESSION_COOKIE_AGE = 600  # seconds
+SESSION_SAVE_EVERY_REQUEST = True
+
+LOGIN_URL = '/login/'
+
 
 
 AUTH_USER_MODEL = 'users.Employee'  # Point to your custom model

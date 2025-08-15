@@ -4,12 +4,12 @@ from django.contrib.auth.views import LoginView
 from .forms import EmployeeLoginForm,EmployeeRegistrationForm
 from django.shortcuts import render, redirect
 from django.views import View
-from django.contrib.auth import login,authenticate
 from django.urls import reverse_lazy
 from .models import Employee
 from django.contrib.auth import logout
 from django.contrib import messages
-
+from django.http import HttpResponseRedirect
+from django.conf import settings
 
 
 
@@ -44,17 +44,6 @@ class EmployeeRegistrationView(View):
                 print(f"{field}: {errors}")
 
         return render(request, self.template_name, {'form': form})
-
-
-
-"""class for Employee Logout"""
-
-class EmployeeLogoutView(View):
-    def get(self, request, *args, **kwargs):
-        logout(request)
-        messages.success(request, "You have been successfully logged out.")
-        return redirect('login') 
-
 
 
 
@@ -99,7 +88,10 @@ class EmployeeLoginView(LoginView):
 
 
 
-
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return HttpResponseRedirect(settings.LOGIN_URL)
 
 
 

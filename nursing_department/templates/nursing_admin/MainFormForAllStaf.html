@@ -110,7 +110,7 @@
                         <i class="fas fa-bell text-xl cursor-pointer hover:text-accent transition"></i>
                         <span class="absolute -top-1 -right-1 h-4 w-4 bg-red-500 rounded-full flex items-center justify-center text-xs">3</span>
                     </div>
-                    <a href="#" class="flex items-center gap-2 hover:text-accent transition">
+                    <a href="{% url 'users:logout' %}" class="flex items-center gap-2 hover:text-accent transition">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Sign out</span>
                     </a>
@@ -127,7 +127,7 @@
                 
                 <!-- Cards Grid -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    <a href="" class="card-hover-effect flex flex-col items-center justify-center h-48 rounded-xl bg-white shadow-md p-6 transition-all duration-300 hover:border-l-4 hover:border-accent group">
+                    <a href="{% url 'nursing_department:form2' %}" class="card-hover-effect flex flex-col items-center justify-center h-48 rounded-xl bg-white shadow-md p-6 transition-all duration-300 hover:border-l-4 hover:border-accent group">
                         <div class="h-16 w-16 bg-accent/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-accent/20 transition">
                             <i class="fas fa-file-alt text-accent text-2xl"></i>
                         </div>
@@ -135,29 +135,6 @@
                         <p class="text-sm text-gray-500 text-center">Employee Registration</p>
                     </a>
                     
-                    <a href="#" class="card-hover-effect flex flex-col items-center justify-center h-48 rounded-xl bg-white shadow-md p-6 transition-all duration-300 hover:border-l-4 hover:border-blue-400 group">
-                        <div class="h-16 w-16 bg-blue-100 rounded-full flex items-center justify-center mb-4 group-hover:bg-blue-200 transition">
-                            <i class="fas fa-file-medical text-blue-500 text-2xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-1">FORM 2</h3>
-                        <p class="text-sm text-gray-500 text-center">Health Records</p>
-                    </a>
-                    
-                    <a href="#" class="card-hover-effect flex flex-col items-center justify-center h-48 rounded-xl bg-white shadow-md p-6 transition-all duration-300 hover:border-l-4 hover:border-emerald-400 group">
-                        <div class="h-16 w-16 bg-emerald-100 rounded-full flex items-center justify-center mb-4 group-hover:bg-emerald-200 transition">
-                            <i class="fas fa-file-invoice text-emerald-500 text-2xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-1">FORM 3</h3>
-                        <p class="text-sm text-gray-500 text-center">Leave Requests</p>
-                    </a>
-                    
-                    <a href="#" class="card-hover-effect flex flex-col items-center justify-center h-48 rounded-xl bg-white shadow-md p-6 transition-all duration-300 hover:border-l-4 hover:border-purple-400 group">
-                        <div class="h-16 w-16 bg-purple-100 rounded-full flex items-center justify-center mb-4 group-hover:bg-purple-200 transition">
-                            <i class="fas fa-file-signature text-purple-500 text-2xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-1">FORM 4</h3>
-                        <p class="text-sm text-gray-500 text-center">Performance Review</p>
-                    </a>
                 </div>
                 
                 <!-- Recent Activity Section -->
@@ -197,3 +174,6 @@
     </div>
 </body>
 </html>
+
+
+

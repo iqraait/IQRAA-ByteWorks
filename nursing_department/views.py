@@ -2,7 +2,7 @@ from django.views.generic import TemplateView
 from .forms import NicuForm,NicuFormAssementData
 from django.contrib import messages
 from django.shortcuts import redirect, render
-from .constants_data import FORM1_FULL_STRUCTURE
+# from .constants_data import FORM1_FULL_STRUCTURE
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -24,7 +24,7 @@ class TestingForm(TemplateView):
 
 
 
-class PreviewForm(TemplateView):
+class PreviewForm(LoginRequiredMixin,TemplateView):
     template_name = "nursing_admin/from2.html"
     success_url = "nursing_department:form3"
 
