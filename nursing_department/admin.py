@@ -10,12 +10,12 @@ class StaffAdmin(admin.ModelAdmin):
 @admin.register(Form1_assement)
 class Form1AssementAdmin(admin.ModelAdmin):
     list_display = (
-
         'evaluation_period',
         'evaluator_name',
         'total_score',
         'percentage',
         'evaluation_date',
+        'staff'
     )
     list_filter = ('evaluation_period', 'evaluation_date')
     search_fields = ('staff__staff_name', 'evaluator_name__name')  # Assuming Employee has a 'name' field
@@ -25,7 +25,7 @@ class Form1AssementAdmin(admin.ModelAdmin):
     # Optional: Customize form display (e.g., grouping fields)
     fieldsets = (
         ('Basic Information', {
-            'fields': ('staff', 'evaluation_period', 'evaluator_name'),
+            'fields': ('evaluation_period', 'evaluator_name'),
         }),
         ('Scores', {
             'fields': ('total_score', 'percentage', 'data'),

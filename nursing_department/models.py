@@ -35,6 +35,7 @@ class Form1_assement(BaseModel):
     percentage = models.FloatField(null=True,blank=True,validators=[MinValueValidator(0), MaxValueValidator(100)])
     data = JSONField(default=dict)
     evaluation_date = models.DateField(auto_now_add=True)
+    staff = models.ForeignKey(Staff,on_delete=models.CASCADE)
 
 
 

@@ -11,27 +11,33 @@
             font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #f9f9f9;
+            background-color: #fff;
             color: #000;
         }
 
         .document {
-            max-width: 1000px;
+            max-width: 950px;
             margin: auto;
             background: #fff;
-            padding: 20px 40px;
-            border: 1px solid #ccc;
+            padding: 30px 40px;
+            border: 2px solid #000;
         }
 
         .header {
             text-align: center;
             border-bottom: 2px solid #000;
             padding-bottom: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
-        .header h2,
+        .header h2 {
+            font-size: 26px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
         .header h3 {
+            font-size: 18px;
             margin: 5px 0;
         }
 
@@ -43,60 +49,74 @@
 
         .info-table td {
             border: 1px solid #000;
-            padding: 6px;
+            padding: 8px;
             vertical-align: middle;
         }
 
-        .instructions {
-            border: 1px solid #000;
-            background: #f2f2f2;
-            padding: 10px;
-            margin-bottom: 20px;
-            font-size: 14px;
+        label {
+            font-weight: bold;
         }
 
-        .rating-scale {
-            border: 1px solid #000;
-            padding: 10px;
-            margin-bottom: 20px;
-            font-size: 14px;
+        .evaluation-period {
+            margin-bottom: 25px;
+            font-size: 16px;
         }
 
-        table.criteria-table {
+        .criteria-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 14px;
             margin-bottom: 20px;
         }
 
-        table.criteria-table th,
-        table.criteria-table td {
+        .criteria-table th,
+        .criteria-table td {
             border: 1px solid #000;
-            padding: 8px;
-            vertical-align: top;
-        }
-
-        table.criteria-table th {
-            background: #f0f0f0;
+            padding: 10px;
             text-align: center;
+            vertical-align: middle;
         }
 
-        .footer-section {
-            margin-top: 20px;
-            font-size: 14px;
+        .criteria-table th {
+            background-color: #000;
+            color: #fff;
+            font-weight: bold;
         }
 
-        .signature-line {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 40px;
+        .criteria-table tr:nth-child(even) td {
+            background-color: #f2f2f2;
         }
 
-        .signature-line div {
-            width: 30%;
-            text-align: center;
-            border-top: 1px solid #000;
-            padding-top: 5px;
+        button {
+            margin-top: 15px;
+            padding: 10px 30px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+
+        .logout-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 16px;
+            background-color: #fff;
+            color: #000;
+            border: 2px solid #000;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        .logout-btn:hover {
+            background-color: #000;
+            color: #fff;
         }
     </style>
 </head>
@@ -104,266 +124,63 @@
 <body>
     <form method="post" novalidate>
         {% csrf_token %}
-    
-        <!-- form1 fields -->
         <div class="document">
+
+            <!-- Header -->
             <div class="header">
                 <h2>Department of Nursing</h2>
                 <h3>Competency Assessment of ANM Staff</h3>
                 <h3>NICU</h3>
             </div>
-    
+
+            <!-- Staff Info -->
             <table class="info-table">
                 <tr>
-                    <td><b>Name of staff:</b> {{ form1.staff_name }}</td>
+                    <td><b>Name of Staff:</b> {{ form1.staff_name }}</td>
                     <td><b>Employee ID:</b> {{ form1.employee_id }}</td>
                 </tr>
                 <tr>
                     <td><b>Designation:</b> {{ form1.designation }}</td>
-                    <td><b>DOJ:</b> {{ form1.date_of_join }}</td>
+                    <td><b>Date of Joining:</b> {{ form1.date_of_join }}</td>
                 </tr>
                 <tr>
                     <td colspan="2"><b>Location:</b> {{ form1.location }}</td>
                 </tr>
             </table>
-        </div>
-    
-        <!-- form2 fields -->
-        <table border="1" cellpadding="5" cellspacing="0">
-            <thead>
-                <tr>
-                    <th colspan="2" style="font-weight: bold; font-size: 18px;">
-                        {{ section }}
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for field in form2 %}
-                <tr>
-                    <td>{{ field.label }}</td>
-                    <td>{{ field }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    
-        <br>
-        <button type="submit">Submit</button>
-    </form>
-    <a href="{% url 'users:logout' %}" class="btn btn-danger">Logout</a>
 
-    
-</body>
-
-</html> 
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 
-
-
-
-
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staff Competency Assessment</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f8f8;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: auto;
-            background: #fff;
-            padding: 20px 30px;
-            border-radius: 6px;
-            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            margin: 0 0 20px 0;
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px 20px;
-            margin-bottom: 15px;
-        }
-
-        .info-grid-full {
-            grid-column: span 2;
-        }
-
-        .info-grid label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        .info-grid input {
-            width: 100%;
-            padding: 6px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        .instructions {
-            background-color: #fff7d6;
-            padding: 12px;
-            border: 1px solid #e0d6a0;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-
-        .criteria-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-
-        .criteria-table th{
-            border: 1px solid #dcb3b3;
-            background-color: #007bff;
-            padding: 6px;
-            text-align: left;
-            vertical-align: middle;
-        }
-
-        .criteria-table td {
-            border: 1px solid #ccc;
-            padding: 6px;
-            text-align: left;
-            vertical-align: middle;
-        }
-
-        .criteria-table th {
-            background-color: #f0f0f0;
-            font-weight: bold;
-        }
-
-        .criteria-table td:first-child {
-            text-align: center;
-        }
-
-        .criteria-table input,
-        .criteria-table select {
-            width: 100%;
-            padding: 4px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            text-align: center;
-        }
-
-        button {
-            margin-top: 20px;
-            padding: 8px 16px;
-            background: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #0056b3;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <h2>Staff Competency Assessment</h2>
-
-        <form method="post" novalidate>
-            {% csrf_token %}
-
-            <div class="info-grid">
-                <div>
-                    <label>Name of Staff: {{ form1.staff_name }}</label>
-                    <input type="text" name="" value="{{ form1.staff_name.value|default_if_none:'' }}">
-                </div>
-                <div>
-                    <label>Employee ID:{{ form1.employee_id }}</label>
-                    <input type="text" name="" value="{{ form1.employee_id.value|default_if_none:'' }}">
-                </div>
-                <div>
-                    <label>Designation:{{ form1.designation }}</label>
-                    <input type="text" name="" value="{{ form1.designation.value|default_if_none:'' }}">
-                </div>
-                <div>
-                    <label>DOJ: {{ form1.date_of_join }}</label>
-                    <input type="date" name="" value="{{ form1.date_of_join.value|default_if_none:'' }}">
-                </div>
-                <div class="info-grid-full">
-                    <label>Location: {{ form1.location }}</label>
-                    <input type="text" name="" value="{{ form1.location.value|default_if_none:'' }}">
-                </div>
+            <!-- Evaluation Period Dropdown -->
+            <div class="evaluation-period">
+                <label for="evaluation_period">Select Evaluation Period:</label>
+                {{ form2.evaluation_period }}
             </div>
 
-            <div class="instructions">
-                <p><strong>INSTRUCTIONS:</strong></p>
-                <ol style="margin: 5px 0 5px 18px;">
-                    <li>This evaluation can be done by unit In-Charge or Area Supervisor.</li>
-                    <li>Evaluation is based on rating scale below.</li>
-                </ol>
-                <p>Rating Scale: 1 - Rarely, 2 - Sometimes, 3 - Mostly, 4 - Always</p>
-            </div>
-
+            <!-- Criteria Table -->
             <table class="criteria-table">
                 <thead>
                     <tr>
                         <th>S.No.</th>
                         <th>Criteria</th>
-                        <th>Date</th>
-                        <td>
-                <select name="month_{{ forloop.counter }}">
-                    <option value="">-- Select Month --</option>
-                    <option value="1">&lt;1 Month</option>
-                    <option value="3">3 Months</option>
-                    <option value="4">4 Months</option>
-                    <option value="6">6 Months</option>
-                </select>
-            </td>
+                        <th>Rating</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for field in form2 %}
-                    <tr>
-                        <td>{{ forloop.counter }}</td>
-                        <td>{{ field.label }}</td>
-                        <td><input type="date" name="date_{{ forloop.counter }}"></td>
-                        <td>
-                        </td>
-                    </tr>
+                        {% if field.name != "evaluation_period" %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td style="text-align:left;">{{ field.label }}</td>
+                            <td>{{ field }}</td>
+                        </tr>
+                        {% endif %}
                     {% endfor %}
                 </tbody>
             </table>
 
+            <!-- Submit & Logout -->
             <button type="submit">Submit</button>
-        </form>
-    </div>
-</body>
+            <a href="{% url 'users:logout' %}" class="logout-btn">Logout</a>
 
+        </div>
+    </form>
+</body>
 </html>
- -->

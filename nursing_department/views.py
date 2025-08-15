@@ -4,17 +4,17 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 # from .constants_data import FORM1_FULL_STRUCTURE
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Employee
 
 
 
 
-
-class StaffDashboard(TemplateView):
+class StaffDashboard(LoginRequiredMixin,TemplateView):
     template_name = 'nursing_admin/MainFormForAllStaf.html'
 
 
 
-class StaffDashBoardForAdmin(TemplateView):
+class StaffDashBoardForAdmin(LoginRequiredMixin,TemplateView):
     template_name = 'nursing_admin/DashBoardForAdminAccess.html'
 
 
@@ -41,9 +41,24 @@ class PreviewForm(LoginRequiredMixin,TemplateView):
 
 
 
-        if form1.is_valid():
-            form1.save()
+        if form1.is_valid() and form2.is_valid():
 
+            staff_instance = form1.save()
+            print("\n=== Cleaned Form Data Form1 ===")
+            for key, value in form1.cleaned_data.items():
+                print(f"{key}: {value}")
+
+
+            print("\n=== Cleaned Form Data ===")
+            for key, value in form2.cleaned_data.items():
+                print(f"{key}: {value}")
+
+                
+            # Get evaluator from logged-in user
+            evaluator_instance = request.user
+
+            # Save assessment using form's save method
+            form2.save(staff=staff_instance, evaluator=evaluator_instance)
 
             messages.success(request, "Form submitted successfully!")
             return redirect(self.success_url)
