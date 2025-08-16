@@ -68,3 +68,8 @@ class PreviewForm(LoginRequiredMixin,TemplateView):
             'form2':form2
         })
 
+
+
+
+
+

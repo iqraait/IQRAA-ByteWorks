@@ -38,7 +38,7 @@ class NicuFormAssementData(forms.ModelForm):
 
     class Meta:
         model = Form1_assement
-        fields = []  # dynamic fields only
+        fields = ['evaluation_period']  # dynamic fields only
 
 
     def __init__(self, *args, **kwargs):
@@ -70,14 +70,27 @@ class NicuFormAssementData(forms.ModelForm):
 
         # Save JSON data
         data_dict = {}
+        total_score = 0
+        total_items = 0
+
         for section, items in FORM1_FULL_STRUCTURE.items():
             section_data = {}
             for item in items:
+                score_str = self.cleaned_data.get(item)
+                score = int(score_str) if score_str else 0
+                section_data[item] = score
+
+                # accumulate totals
+                total_score += score
+                total_items += 1
                 data_dict_item = self.cleaned_data.get(item)
+
                 section_data[item] = data_dict_item
             data_dict[section] = section_data
 
         instance.data = data_dict  # JSONField in model
+        instance.total_score = total_score
+        instance.percentage = round((total_score / (total_items * 4)) * 100, 2) if total_items else 0
         instance.staff = staff
         instance.evaluator_name = evaluator
 

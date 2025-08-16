@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_filters %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -161,6 +162,7 @@
                         <th>S.No.</th>
                         <th>Criteria</th>
                         <th>Rating</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -175,7 +177,32 @@
                     {% endfor %}
                 </tbody>
             </table>
-
+            {% if results_table %}
+            <h3>Previous Assessments for {{ staff.staff_name }}</h3>
+            <table border="1">
+              <thead>
+                <tr>
+                  <th>S.No.</th>
+                  <th>Criteria</th>
+                  {% for period, label in evaluation_periods %}
+                    <th>{{ label }}</th>
+                  {% endfor %}
+                </tr>
+              </thead>
+              <tbody>
+                {% for criteria, scores in results_table.items %}
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td>{{ criteria }}</td>
+                  {% for period, label in evaluation_periods %}
+                    <td>{{ scores|get_item:period|default:"-" }}</td>
+                  {% endfor %}
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            {% endif %}
+            
             <!-- Submit & Logout -->
             <button type="submit">Submit</button>
             <a href="{% url 'users:logout' %}" class="logout-btn">Logout</a>
