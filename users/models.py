@@ -27,6 +27,7 @@ class Department(BaseModel):
 
 """custom User_Manager code"""
 
+
 class EmployeeManager(BaseUserManager):
     def create_user(self, iqraa_id,  password=None, **extra_fields):
         if not iqraa_id:

@@ -3,8 +3,6 @@ from .models import Form1_assement,Staff
 from .constants_data import FORM1_FULL_STRUCTURE
 
 class NicuForm(forms.ModelForm):
-
-    
     class  Meta:
         model = Staff
         fields = ['staff_name','designation','employee_id','location','date_of_join']

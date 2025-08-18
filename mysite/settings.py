@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
-    'nursing_department'
+    'nursing_department',
+    'front_office',
 ]
 
 MIDDLEWARE = [

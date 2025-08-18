@@ -36,6 +36,7 @@ class Form1_assement(BaseModel):
     data = JSONField(default=dict)
     evaluation_date = models.DateField(auto_now_add=True)
     staff = models.ForeignKey(Staff,on_delete=models.CASCADE)
+    is_approved = models.BooleanField(default=False)
 
 
 

@@ -4,8 +4,11 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 # from .constants_data import FORM1_FULL_STRUCTURE
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Employee
-
+from .models import Form1_assement,Staff
+from django.views.generic import ListView,View
+from django.shortcuts import get_object_or_404, redirect
+from django.http import HttpResponse
+from .services import generate_assessment_pdf
 
 
 
@@ -14,8 +17,15 @@ class StaffDashboard(LoginRequiredMixin,TemplateView):
 
 
 
-class StaffDashBoardForAdmin(LoginRequiredMixin,TemplateView):
+class AdminDashboardView(ListView):
+    model = Form1_assement
     template_name = 'nursing_admin/DashBoardForAdminAccess.html'
+    context_object_name = "assements"
+
+
+    def get_queryset(self):
+        return Form1_assement.objects.select_related("staff", "evaluator_name").all()
+
 
 
 
@@ -71,5 +81,7 @@ class PreviewForm(LoginRequiredMixin,TemplateView):
 
 
 
-
-
+class DownloadPdf(View):
+    def get(self, request, pk):
+        assessments = get_object_or_404(Form1_assement,pk=pk)
+        return generate_assessment_pdf(assessments)

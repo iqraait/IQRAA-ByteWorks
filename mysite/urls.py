@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('users.urls',namespace='users')), # users app urls
     path('nursing/',include('nursing_department.urls',namespace='nursing_department')),
+    path('front_office',include('front_office.urls',namespace='front_office'))
 
 ]
 
