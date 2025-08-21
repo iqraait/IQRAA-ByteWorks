@@ -1,128 +1,222 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Patient Registration</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
-      background: linear-gradient(135deg, #eef2ff, #f9fafb);
-      font-family: 'Inter', sans-serif;
-      color: #111827;
+      background-color: #f8f9fa;
     }
-    .card {
-      border-radius: 16px;
-      background: #ffffff;
-      padding: 2.5rem;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-      border: none;
-    }
-    h2 {
-      font-weight: 700;
-      font-size: 1.9rem;
-      color: #1f2937;
-    }
-    h5 {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #374151;
-      margin-bottom: 1.5rem;
-      border-left: 4px solid #2563eb;
-      padding-left: 0.6rem;
-    }
-    .form-label {
-      font-weight: 500;
-      font-size: 0.9rem;
-      margin-bottom: 0.3rem;
-      color: #374151;
-    }
-    .form-control, .form-select {
-      border-radius: 10px;
-      border: 1px solid #d1d5db;
-      padding: 0.65rem;
-      font-size: 0.95rem;
-      background: #f9fafb;
-      transition: all 0.25s ease;
-    }
-    .form-control:focus, .form-select:focus {
+    .form-section {
       background: #fff;
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
-    }
-    .btn-primary {
-      background: linear-gradient(90deg, #2563eb, #1d4ed8);
-      border: none;
+      padding: 20px;
       border-radius: 10px;
-      padding: 0.65rem 1.8rem;
-      font-weight: 600;
-      letter-spacing: 0.3px;
+      box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
     }
-    .btn-primary:hover {
-      background: linear-gradient(90deg, #1d4ed8, #1e40af);
+    .form-section h5 {
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 5px;
+      margin-bottom: 15px;
     }
-    .btn-outline-secondary {
-      border-radius: 10px;
-      padding: 0.65rem 1.8rem;
-      font-weight: 500;
-      border: 1px solid #d1d5db;
-      color: #374151;
-    }
-    .btn-outline-secondary:hover {
-      background: #f3f4f6;
+    .btn-custom {
+      margin-right: 10px;
     }
   </style>
 </head>
-<body>
-<div class="container py-5">
-  <div class="row justify-content-center">
-    <div class="col-lg-11">
-      <div class="card">
-        <h2 class="text-center mb-5">Patient Registration</h2>
+<body class="container-fluid p-4">
 
-        <form method="post">
-          {% csrf_token %}
-          <div class="row g-4">
-            
-            <!-- Patient Info -->
-            <div class="col-md-6">
-              <h5>Patient Information</h5>
-              {% for field in patient_form %}
-                <div class="mb-3">
-                  {{ field.label_tag }}
-                  {{ field }}
-                  {% if field.errors %}
-                    <div class="text-danger small">{{ field.errors|striptags }}</div>
-                  {% endif %}
-                </div>
-              {% endfor %}
+  <div class="row">
+    <!-- Left Section -->
+    <div class="col-lg-8">
+      <div class="form-section">
+        <h5>Patient Registration</h5>
+        <form>
+          <div class="row mb-3">
+            <div class="col-md-4">
+              <label class="form-label">Patient Code</label>
+              <input type="text" class="form-control" placeholder="Search IQRAA NO">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Mobile no. *</label>
+              <input type="tel" class="form-control" placeholder="+91">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Passport number</label>
+              <input type="text" class="form-control">
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-2">
+              <label class="form-label">Title</label>
+              <select class="form-select">
+                <option>--Select--</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">First Name *</label>
+              <input type="text" class="form-control">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Middle Name</label>
+              <input type="text" class="form-control">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Last Name</label>
+              <input type="text" class="form-control">
+            </div>
+            <div class="col-md-1">
+              <label class="form-label">Gender *</label>
+              <select class="form-select">
+                <option>--Select--</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-3">
+              <label class="form-label">Whatsapp Number</label>
+              <input type="tel" class="form-control" placeholder="+91">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Dob *</label>
+              <input type="date" class="form-control">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Patient Type *</label>
+              <input type="text" class="form-control" value="GENERAL">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">ABHA Number</label>
+              <input type="text" class="form-control">
+            </div>
+          </div>
+
+          <!-- Address Details -->
+          <div class="form-section">
+            <h5>Address Details</h5>
+            <div class="row mb-3">
+              <div class="col-md-4">
+                <label class="form-label">Area *</label>
+                <select class="form-select"><option>--Select--</option></select>
+              </div>
+              <div class="col-md-8">
+                <label class="form-label">Address Line 1</label>
+                <input type="text" class="form-control">
+              </div>
             </div>
 
-            <!-- Address Info -->
-            <div class="col-md-6">
-              <h5>Address Information</h5>
-              {% for field in address_form %}
-                <div class="mb-3">
-                  {{ field.label_tag }}
-                  {{ field }}
-                  {% if field.errors %}
-                    <div class="text-danger small">{{ field.errors|striptags }}</div>
-                  {% endif %}
-                </div>
-              {% endfor %}
+            <div class="row mb-3">
+              <div class="col-md-4">
+                <label class="form-label">City</label>
+                <select class="form-select"><option>--Select Value--</option></select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Country</label>
+                <input type="text" class="form-control" value="INDIA">
+              </div>
+              <div class="col-md-2">
+                <label class="form-label">State</label>
+                <input type="text" class="form-control" value="KERALA">
+              </div>
+              <div class="col-md-2">
+                <label class="form-label">Pincode</label>
+                <input type="text" class="form-control">
+              </div>
+            </div>
+          </div>
+
+          <!-- Additional Details -->
+          <div class="form-section">
+            <h5>Additional Details</h5>
+            <div class="row mb-3">
+              <div class="col-md-3">
+                <label class="form-label">Marital Status</label>
+                <select class="form-select"><option>--Select--</option></select>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Religion</label>
+                <select class="form-select"><option>--Select--</option></select>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Blood Group</label>
+                <select class="form-select"><option>--Select--</option></select>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Alternate Phone</label>
+                <input type="tel" class="form-control">
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-3">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Guardian Name</label>
+                <input type="text" class="form-control">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Emergency Number</label>
+                <input type="tel" class="form-control">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Aadhar Number</label>
+                <input type="text" class="form-control">
+              </div>
             </div>
           </div>
 
           <!-- Buttons -->
-          <div class="d-flex justify-content-end gap-3 mt-4">
-            <a href="{% url 'front_office:patients_list' %}" class="btn btn-outline-secondary">Cancel</a>
-            <button type="submit" class="btn btn-primary">Register</button>
+          <div class="mt-3">
+            <button type="submit" class="btn btn-success btn-custom">Save</button>
+            <button type="reset" class="btn btn-danger btn-custom">Clear</button>
+            <button type="button" class="btn btn-info btn-custom">Check Duplication</button>
+            <button type="button" class="btn btn-primary btn-custom">Add ID Card</button>
+            <button type="button" class="btn btn-warning btn-custom">Add Patient Note</button>
           </div>
         </form>
+      </div>
+    </div>
 
+    <!-- Right Section -->
+    <div class="col-lg-4">
+      <div class="form-section">
+        <h5>Appointment Details</h5>
+        <form>
+          <div class="mb-3">
+            <label class="form-label">Appointment Date *</label>
+            <input type="date" class="form-control" value="2025-08-21">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Department *</label>
+            <select class="form-select"><option>--Select Department--</option></select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Doctor Visit</label>
+            <select class="form-select"><option>--Select Doctor--</option></select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Referred by</label>
+            <input type="checkbox"> MLC
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Registration Type *</label><br>
+            <input type="radio" name="regtype"> Token
+            <input type="radio" name="regtype"> Booking
+            <input type="radio" name="regtype"> New Token
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Remarks</label>
+            <input type="text" class="form-control" placeholder="Please select">
+          </div>
+        </form>
       </div>
     </div>
   </div>
-</div>
+
 </body>
 </html>

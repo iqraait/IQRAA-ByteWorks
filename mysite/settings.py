@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'users',
     'nursing_department',
     'front_office',
+    'django_countries',
 ]
 
 MIDDLEWARE = [
@@ -97,10 +98,22 @@ DATE_INPUT_FORMATS = [
 #     }
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3', # Sql lite
+#     }
+# }
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3', # Sql lite
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'iqraa',        # Your database name
+        'USER': 'postgres',     # Your Postgres user
+        'PASSWORD': 'iqraa123',  # Replace with actual password
+        'HOST': 'localhost',    # Or IP if remote
+        'PORT': '5432',         # Default Postgres port
     }
 }
 

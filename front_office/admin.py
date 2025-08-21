@@ -12,12 +12,12 @@ class PatientAdmin(admin.ModelAdmin):
 @admin.register(Department)
 class DepartmentAdmin(admin.ModelAdmin):
     list_display = ('name', 'doctor_count')
-    
+    search_fields = ('name',)
     def doctor_count(self, obj):
         return obj.doctors.count()
 
 @admin.register(Doctor)
 class DoctorAdmin(admin.ModelAdmin):
-    list_display = ('name', 'department')
+    list_display = ('name', 'department','op_consulting','service_fee')
     list_filter = ('department',)
     search_fields = ('name',)

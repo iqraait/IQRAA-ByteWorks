@@ -1,6 +1,7 @@
 from django.db import models
 from users.models import BaseModel
 from .choices import Gender,Patient_type,Title,Visit,Registration_type
+from django_countries.fields import CountryField
 
 
 
@@ -20,6 +21,8 @@ class Doctor(BaseModel):  # Changed from Doctors to Doctor (singular)
         blank=True,
         related_name='doctors'  # Access via department.doctors.all()
     )
+    op_consulting = models.IntegerField(blank=True,null=True)
+    service_fee = models.IntegerField(blank=True,null=True)
     
     def __str__(self):
         return f"{self.name} ({self.department.name if self.department else 'No Department'})"
@@ -43,6 +46,7 @@ class Patient_Registration(BaseModel):
     Department = models.ForeignKey(Department,on_delete=models.SET_NULL,blank=True,null=True)
     doctor_vist = models.CharField(choices=Visit.choices,max_length=4,blank=True,null=True)
     registration_type = models.CharField(choices=Registration_type.choices,max_length=2,blank=True,null=True)
+    doctor_name = models.ForeignKey(Doctor,on_delete=models.SET_NULL,blank=True,null=True)
 
 
     class Meta:
@@ -65,5 +69,5 @@ class Address(BaseModel):
     Address_line_2 = models.CharField(max_length=200,blank=True,null=True)
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=100)
-    country = models.CharField(max_length=100)
+    country = CountryField(blank_label='(select country)')
     pincode = models.CharField(max_length=20)
