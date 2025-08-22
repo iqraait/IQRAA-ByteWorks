@@ -6,7 +6,7 @@ from django_countries.fields import CountryField
 
 
 
-class Department(BaseModel):
+class Doctors_Department(BaseModel):
     name = models.CharField(max_length=100, unique=True)
     
     def __str__(self):
@@ -15,7 +15,7 @@ class Department(BaseModel):
 class Doctor(BaseModel):  # Changed from Doctors to Doctor (singular)
     name = models.CharField(max_length=120,unique=True)
     department = models.ForeignKey(
-        Department,
+        Doctors_Department,
         on_delete=models.SET_NULL,  # Doctor remains if department is deleted
         null=True,
         blank=True,
@@ -43,7 +43,7 @@ class Patient_Registration(BaseModel):
     patient_type = models.CharField(choices=Patient_type.choices,blank=False,null=False,max_length=2)
     title = models.CharField(choices=Title.choices,blank=False,null=False,max_length=4)
     appoinment_date = models.DateField()
-    Department = models.ForeignKey(Department,on_delete=models.SET_NULL,blank=True,null=True)
+    department = models.ForeignKey(Doctors_Department,on_delete=models.SET_NULL,blank=True,null=True)
     doctor_vist = models.CharField(choices=Visit.choices,max_length=4,blank=True,null=True)
     registration_type = models.CharField(choices=Registration_type.choices,max_length=2,blank=True,null=True)
     doctor_name = models.ForeignKey(Doctor,on_delete=models.SET_NULL,blank=True,null=True)

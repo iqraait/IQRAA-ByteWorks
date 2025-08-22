@@ -46,6 +46,10 @@
       border-radius: 4px;
     }
 
+    input[type="checkbox"] {
+      margin-right: 0.5rem;
+    }
+
     button {
       width: 100%;
       padding: 0.6rem;
@@ -80,7 +84,7 @@
   <div class="register-box">
     <h2>Employee Registration</h2>
 
-    <form method="POST" action="{% url 'register' %}">
+    <form method="POST" action="{% url 'users:register' %}">
       {% csrf_token %}
 
       {% if form.non_field_errors %}
@@ -125,6 +129,18 @@
         {{ form.password2.label_tag }}
         {{ form.password2 }}
         {% for error in form.password2.errors %}
+          <div class="error">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <!-- Is Staff Field -->
+      <div class="form-group">
+        {{ form.is_staff }}
+        {{ form.is_staff.label_tag }}
+        {% if form.is_staff.help_text %}
+          <span class="helptext">{{ form.is_staff.help_text }}</span>
+        {% endif %}
+        {% for error in form.is_staff.errors %}
           <div class="error">{{ error }}</div>
         {% endfor %}
       </div>

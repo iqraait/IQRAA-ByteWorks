@@ -17,7 +17,7 @@ class EmployeeRegistrationForm(UserCreationForm):
     
     class Meta:
         model = Employee
-        fields = ('iqraa_id', 'department', 'password1', 'password2')  # how the form will be set order wise
+        fields = ('iqraa_id', 'department', 'password1', 'password2','is_staff')  # how the form will be set order wise
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

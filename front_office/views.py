@@ -39,3 +39,5 @@ class PatientsListView(ListView):
     template_name = "front_office/patients_list.html"
     context_object_name = "patients"
     ordering = ["-created"]  # latest first
+
+    

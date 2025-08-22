@@ -18,7 +18,7 @@ from django.conf import settings
 class EmployeeRegistrationView(View):
     template_name = 'users/register.html'
     form_class = EmployeeRegistrationForm
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('users:login')
 
     def get(self, request, *args, **kwargs):
         form = self.form_class()

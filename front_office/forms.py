@@ -14,7 +14,7 @@ class PatientRegistrationForm(forms.ModelForm):
             "patient_type",
             "title",
             "appoinment_date",
-            "Department",
+            "department",
             "doctor_vist",
             "registration_type",
             "doctor_name"
