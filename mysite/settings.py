@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'users',
     'nursing_department',
     'front_office',
-    'django_countries',
 ]
 
 MIDDLEWARE = [
@@ -154,10 +153,6 @@ import os
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # For development
-
-# This is required if you ever run collectstatic (even in dev accidentally)
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # This can be any name
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

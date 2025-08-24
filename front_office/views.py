@@ -1,8 +1,9 @@
 from django.views import View
 from django.shortcuts import render, redirect
 from .forms import PatientRegistrationForm, AddressForm
-from .models import Patient_Registration
+from .models import Patient_Registration,City
 from django.views.generic import ListView
+from django.http import JsonResponse
 
 
 class PatientRegisterView(View):
@@ -11,9 +12,12 @@ class PatientRegisterView(View):
     def get(self, request, *args, **kwargs):
         patient_form = PatientRegistrationForm()
         address_form = AddressForm()
+        cities = City.objects.select_related("state__country").all()
+
         return render(request, self.template_name, {
             "patient_form": patient_form,
             "address_form": address_form,
+            "cities":cities
         })
 
     def post(self, request, *args, **kwargs):
@@ -41,3 +45,12 @@ class PatientsListView(ListView):
     ordering = ["-created"]  # latest first
 
     
+
+class LoadDoctorsView(View):
+    def get(self, request, *args, **kwargs):
+        department_id = request.GET.get('department_id')
+        if not department_id:
+            return JsonResponse([], safe=False)  # return empty list if no department selected
+
+        doctors = Doctor.objects.filter(department_id=department_id).values('id', 'name')
+        return JsonResponse(list(doctors), safe=False)

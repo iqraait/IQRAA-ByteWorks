@@ -33,4 +33,31 @@ class Registration_type(models.TextChoices):
     BOOKING = "BK","Booking"
     NEW_TOKEN  = "NK", "New Token"
     
- 
+
+
+class City(models.TextChoices):
+    THIRUVANANTHAPURAM = "TVM", "Thiruvananthapuram"
+    KOLLAM = "KLMM", "Kollam"
+    PATHANAMTHITTA = "PTA", "Pathanamthitta"
+    ALAPPUZHA = "ALP", "Alappuzha"
+    KOTTAYAM = "KTM", "Kottayam"
+    IDUKKI = "IDK", "Idukki"
+    ERNAKULAM = "EKM", "Ernakulam"
+    THRISSUR = "TSR", "Thrissur"
+    PALAKKAD = "PLK", "Palakkad"
+    MALAPPURAM = "MLP", "Malappuram"
+    KOZHIKODE = "KKD", "Kozhikode"
+    WAYANAD = "WYD", "Wayanad"
+    KANNUR = "KNR", "Kannur"
+    KASARAGOD = "KGD", "Kasaragod"
+
+
+class State(models.TextChoices):
+    KERALA = "KL","Kerala"
+
+
+class RegistrationType(models.TextChoices):
+    TOKEN = "token", "Token"
+    BOOKING = "booking", "Booking"
+    NEW_TOKEN = "new_token", "New Token"
+
