@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import PatientRegisterView,PatientsListView,LoadDoctorsView
+from .views import PatientRegisterView,PatientsListView,PatientBillPDFView
 
 
 app_name = 'front_office'  # Must have this namespace
@@ -7,8 +7,9 @@ app_name = 'front_office'  # Must have this namespace
 
 urlpatterns = [
         path('', PatientRegisterView.as_view(), name="patient_register"),
-        path("patients/", PatientsListView.as_view(), name="patients_list"),
-        path('ajax/load-doctors/', LoadDoctorsView.as_view(), name='ajax_load_doctors'),
+        path("/patients", PatientsListView.as_view(), name="patients_list"),
+        path("patient/<int:pk>/bill/pdf/", PatientBillPDFView.as_view(), name="patient_bill_pdf"),
+
 
 
 ]

@@ -3,7 +3,8 @@ from django.shortcuts import render, redirect
 from .forms import PatientRegistrationForm, AddressForm
 from .models import Patient_Registration,City
 from django.views.generic import ListView
-from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from .service import generate_patient_bill_pdf
 
 
 class PatientRegisterView(View):
@@ -44,13 +45,9 @@ class PatientsListView(ListView):
     context_object_name = "patients"
     ordering = ["-created"]  # latest first
 
-    
 
-class LoadDoctorsView(View):
-    def get(self, request, *args, **kwargs):
-        department_id = request.GET.get('department_id')
-        if not department_id:
-            return JsonResponse([], safe=False)  # return empty list if no department selected
 
-        doctors = Doctor.objects.filter(department_id=department_id).values('id', 'name')
-        return JsonResponse(list(doctors), safe=False)
+class PatientBillPDFView(View):
+    def get(self, request, pk, *args, **kwargs):
+        patient = get_object_or_404(Patient_Registration, pk=pk)
+        return generate_patient_bill_pdf(patient)
