@@ -35,12 +35,24 @@ class EmployeeRegistrationForm(UserCreationForm):
 class EmployeeLoginForm(AuthenticationForm):
     username = forms.IntegerField(
         label="Iqraa ID",
-        widget=forms.NumberInput(attrs={'autofocus': True}))
-    
+        widget=forms.NumberInput(
+            attrs={
+                'autofocus': True,
+                'class': 'form-control',
+                'placeholder': 'Enter Iqraa ID'
+            }
+        )
+    )
     password = forms.CharField(
         label="Password",
         strip=False,
-        widget=forms.PasswordInput)
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter Password'
+            }
+        )
+    )
     
     error_messages = {
         'invalid_login': "Invalid Iqraa ID or password.",
